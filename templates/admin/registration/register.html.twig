@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+
+            {% for flash_error in app.flashes('verify_email_error') %}
+            <div class="col-12">
+                <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+            </div>
+            {% endfor %}
+
+            <div class="col-12">
+                <h1>Création de votre compte</h1>
+                <div class="row">
+                    <div class="col-4">
+                        <h4>Qui êtes-vous</h4>
+                        <div class="d-grid">
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.firstName) }}
+                                {{ form_widget(registrationForm.firstName, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.lastName) }}
+                                {{ form_widget(registrationForm.lastName, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.address) }}
+                                {{ form_widget(registrationForm.address, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.bisAddress) }}
+                                {{ form_widget(registrationForm.bisAddress, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.zipcode) }}
+                                {{ form_widget(registrationForm.zipcode, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.city) }}
+                                {{ form_widget(registrationForm.city, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="d-grid">
+                            <h4>Autres</h4>
+
+                            {{ form_start(registrationForm) }}
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.email) }}
+                                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.password) }}
+                                {{ form_widget(registrationForm.password, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                                {% if registrationForm.password.vars.help is not empty %}
+                                    <small class="form-text text-muted">
+                                        {{ form_help(registrationForm.password) }}
+                                    </small>
+                                {% endif %}
+                                {% if registrationForm.password.vars.errors is not empty %}
+                                    <div class="error">
+                                        {{ form_errors(registrationForm.password) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.roleMember) }}
+                                {{ form_widget(registrationForm.roleMember, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                            </div>
+                            <div class="mb-1">
+                                {{ form_label(registrationForm.agreeTerms) }}
+                                {{ form_widget(registrationForm.agreeTerms) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-sm btn-primary">S'inscrire</button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

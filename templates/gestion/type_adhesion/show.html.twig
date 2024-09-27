@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}typeAdhesion{% endblock %}
+
+{% block body %}
+    <h1>typeAdhesion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ type_adhesion.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ type_adhesion.name }}</td>
+            </tr>
+            <tr>
+                <th>PriceCotisation</th>
+                <td>{{ type_adhesion.priceCotisation }}</td>
+            </tr>
+            <tr>
+                <th>StartAt</th>
+                <td>{{ type_adhesion.startAt ? type_adhesion.startAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>EndAt</th>
+                <td>{{ type_adhesion.endAt ? type_adhesion.endAt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td>{{ type_adhesion.notes }}</td>
+            </tr>
+            <tr>
+                <th>CreateAt</th>
+                <td>{{ type_adhesion.createAt ? type_adhesion.createAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdateAt</th>
+                <td>{{ type_adhesion.updateAt ? type_adhesion.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gestion_type_adhesion_index') }}">back to list</a>
+
+    <a href="{{ path('app_gestion_type_adhesion_edit', {'id': type_adhesion.id}) }}">edit</a>
+
+    {{ include('gestion/type_adhesion/_delete_form.html.twig') }}
+{% endblock %}

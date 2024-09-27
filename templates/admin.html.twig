@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+            <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+            <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+            <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+        {% endblock %}
+    </head>
+    <body class="admin">
+        <header>
+            {% block header %}
+                {{ render(controller('App\\Controller\\Admin\\DashboardController::NavBar')) }}
+            {% endblock %}
+        </header>
+        <main id="main">
+            {{ include('admin/dashboard/include/side.html.twig') }}
+            <div id="content" class="float-end">
+                <div class="container-fluid py-3">
+                    {% block breadcrumb_content %}
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+                                <li class="breadcrumb-item">
+                                    <a class="link-body-emphasis text-decoration-none" href="#">
+                                        {{ ux_icon('fa6-regular:house-duotone-solid', {height: '1rem', width: '1rem' }) }}
+                                        <span> Accueil</span>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Library</a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    Data
+                                </li>
+                            </ol>
+                        </nav>
+                    {% endblock %}
+                    {% block header_content %}
+                        <div class="row">
+                            <div class="col-12">
+                                <h2>Bloc content admin</h2>
+                            </div>
+                        </div>
+                    {% endblock %}
+                    {% block main_content %}
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>LISTE</h2>
+                        </div>
+                    </div>
+                    {% endblock %}
+                </div>
+            </div>
+            {% block modals %}
+            <section>
+
+            </section>
+            {% endblock %}
+        </main>
+        <footer class="container-fluid">
+            <div class="py-1">
+                <div class="d-flex flex-column flex-sm-row justify-content-between py-1 my-1 border-top">
+                    <p class="mb-0">© 2024 Company, Inc. All rights reserved.</p>
+                    <ul class="list-unstyled d-flex mb-0">
+                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
+                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
+                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

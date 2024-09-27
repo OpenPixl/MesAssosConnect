@@ -1,0 +1,58 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Hello DashboardController!{% endblock %}
+
+{% block breadcrumb_content %}
+    {{ include('admin/include/_breadcrumb.html.twig', {
+        firstLabel : null,
+        firstLabel_route: null,
+        secondLabel : null,
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+    }) }}
+{% endblock %}
+
+
+{% block header_content %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Tableau de Bord</h2>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block main_content %}
+    <div class="row">
+        <div class="col-12 border-top">
+            <div class="float-start">
+                <h3 class="py-2">Mes Assocations</h3>
+            </div>
+            <div class="float-end">
+                <p class="py-2"><span class="text-muted">Actuellement connecté à : {% if associations|length > 1 %}{{ associations|length }} associations{% else %}{{ associations|length }} association{% endif %}</span></p></div>
+
+        </div>
+        {% for association in associations %}
+            <div class="col-4">
+                <div class="card rounded-1 mb-3" style="max-width: 540px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="{{ asset('associations/'~association.slug~'/logo/'~association.logoName) | imagine_filter('association_card') }}" class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ association.name }}</h5>
+                                <p class="card-text">{{ association.object }}</p>
+                                <p class="card-text"><small class="text-body-secondary">Membres : {{ association.adhesions|length }}</small></p>
+                                <a href="{{ path('mac_admin_association_show', {'id': association.id}) }}" class="btn btn-primary stretched-link">Accéder à la fiche</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+
+        {% endfor %}
+    </div>
+{% endblock %}

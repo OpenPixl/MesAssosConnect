@@ -1,0 +1,136 @@
+{{ form_start(form) }}
+<div class="row g-1 py-1 align-items-center border-bottom">
+    <div class="col-4">
+        <div class="row g-1 align-items-center">
+            <div class="col-4">
+                {{ form_label(form.typeMember, null, {'label_attr': {'class': 'form-label', 'for': form.civility.vars.label}}) }}
+            </div>
+            <div class="col-4">
+                <div class="mb-1">
+                    {% for label, value, choice in field_choices(form.typeMember) %}
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="{{ field_name(form.typeMember) }}" id="inlineRadio1" value="{{ value }}" {% if value is same as member.typeMember %}checked="checked"{% endif %}>
+                            <label class="form-check-label" for="inlineRadio1">{{ label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="row g-1">
+            <div class="col-8">
+                <div class="form-check form-switch">
+                    {{ form_label(form.isVerified, null, {'label_attr': {'class': 'form-check-label', 'for': form.isVerified.vars.label}}) }}
+                    {{ form_widget(form.isVerified,  {'attr': {'class': 'form-check-input'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="row g-1 align-items-center">
+            <div class="col-3">
+                {{ form_label(form.roleMember, null, {'label_attr': {'class': 'form-label', 'for': form.civility.vars.label}}) }}
+            </div>
+            <div class="col-9">
+                {{ form_widget(form.roleMember,  {'attr': {'class': ''}}) }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-1 my-1">
+    <div class="col-6">
+        <h6>Informations générales</h6>
+        <div class="row g-1">
+            <div class="col-3">
+                <div class="mb-1">
+                    {{ form_label(form.civility, null, {'label_attr': {'class': 'form-label', 'for': form.civility.vars.label}}) }}
+                    {% for label, value, choice in field_choices(form.civility) %}
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="{{ field_name(form.civility) }}" id="inlineRadio1" value="{{ value }}" {% if value is same as member.civility %}checked="checked"{% endif %}>
+                            <label class="form-check-label" for="inlineRadio1">{{ label }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="mb-1">
+                    {{ form_label(form.firstName, null, {'label_attr': {'class': 'form-label', 'for': form.firstName.vars.label}}) }}
+                    {{ form_widget(form.firstName, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="mb-1">
+                    {{ form_label(form.lastName, null, {'label_attr': {'class': 'form-label', 'for': form.lastName.vars.label}}) }}
+                    {{ form_widget(form.lastName, {'attr': {'class': 'form-control form-control-sm'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="row g-1">
+            <div class="col-8">
+                <div>
+                    {{ form_label(form.address, null, {'label_attr': {'class': 'foo', 'for': form.address.vars.label}}) }}
+                    {{ form_widget(form.address, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'Rue ...'}}) }}
+                </div>
+            </div>
+            <div class="col-8">
+                <div>
+                    {{ form_widget(form.bisAddress, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'Complément'}}) }}
+                </div>
+            </div>
+            <div class="w-100 mt-0"></div>
+            <div class="col-2">
+                <div>
+                    {{ form_widget(form.zipcode, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'CP'}}) }}
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    {{ form_widget(form.city, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'City'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="row g-1">
+            <div class="col-3">
+                <div>
+                    {{ form_label(form.birthday, null, {'label_attr': {'class': 'foo', 'for': form.birthday.vars.label}}) }}
+                    {{ form_widget(form.birthday, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'Rue ...'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <h6>Contacts</h6>
+        <div class="row g-1">
+            <div class="col-3">
+                <div>
+                    {{ form_label(form.mobilePhone, null, {'label_attr': {'class': 'foo', 'for': form.mobilePhone.vars.label}}) }}
+                    {{ form_widget(form.mobilePhone, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'Mobile ...'}}) }}
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    {{ form_label(form.homePhone, null, {'label_attr': {'class': 'foo', 'for': form.homePhone.vars.label}}) }}
+                    {{ form_widget(form.homePhone, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'Domicile ...'}}) }}
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    {{ form_label(form.workPhone, null, {'label_attr': {'class': 'foo', 'for': form.workPhone.vars.label}}) }}
+                    {{ form_widget(form.workPhone, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'Travail ...'}}) }}
+                </div>
+            </div>
+        </div>
+        <div class="row g-1">
+            <div class="col-3">
+                <div>
+                    {{ form_label(form.email, null, {'label_attr': {'class': 'foo', 'for': form.email.vars.label}}) }}
+                    {{ form_widget(form.email, {'attr': {'class': 'form-control form-control-sm', 'placeholder' : 'Email ...'}}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}

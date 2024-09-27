@@ -1,0 +1,65 @@
+networks:
+  # création d'un nouveau réseau
+  symfony:
+    ipam:
+      config:
+        - subnet: 172.${PROJECT_IP_NETWORK}.0.0/16
+
+services:
+###> doctrine/doctrine-bundle ###
+  db:
+    image: mariadb:latest
+    container_name: ${PROJECT}_db
+    user: ${USER_ID}:${GROUP_ID}
+    restart: no
+    volumes:
+      - ./containers/mariadb:/var/lib/mysql
+    ports:
+      - ${MARIA_HOST_PORT}:3306
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MARIA_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MARIADB_DBNAME}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    networks:
+      symfony:
+        ipv4_address: 172.${PROJECT_IP_NETWORK}.1.1 # Mise en place d'une adresse IP_V4 fixe pour le container
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: ${PROJECT}_pma
+    restart: no
+    depends_on:
+      - db
+    ports:
+      - 8080:80
+    environment:
+      PMA_HOST: db
+      MARIA_ROOT_PASSWORD: ${MARIA_ROOT_PASSWORD}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+    networks:
+      symfony:
+        ipv4_address: 172.${PROJECT_IP_NETWORK}.1.2 # Mise en place d'une adresse IP_V4 fixe pour le container
+
+  # Elements de build pour le container serveur web
+  www:
+    build:
+      context: ./containers/php
+      args:
+        USER: ${USER}
+        USER_MAIL: ${USER_MAIL}
+    container_name: ${PROJECT}_www
+    depends_on:
+      - db
+    ports:
+      - ${HTTP_HOST_PORT}:80
+      - ${HTTP_HOST_PORTDEV}:8000
+    volumes:
+      - ./containers/php/vhosts/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+      - ./:/var/www/html/app
+    restart: no
+    networks:
+      symfony:
+        ipv4_address: 172.${PROJECT_IP_NETWORK}.1.3 # Mise en place d'une adresse IP_V4 fixe pour le container
+###< doctrine/doctrine-bundle ###

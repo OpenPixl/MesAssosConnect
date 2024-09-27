@@ -1,0 +1,15 @@
+// Feuille de style, dédié au front-office
+// ---------------------------------------
+
+.public{
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  h5{
+    color: $primary-color;
+  }
+  main{
+    position: relative;
+    top:88px;
+  }
+}

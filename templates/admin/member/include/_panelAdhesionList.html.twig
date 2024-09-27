@@ -1,0 +1,25 @@
+{% for adhesion in member.adhesions %}
+    <tr>
+        <td><input type="checkbox" name="checkboxListAdhesions" value="{{ adhesion.id }}"></td>
+        <td>{{ adhesion.asso }}</td>
+        <td>{{ adhesion.typeAdhesion }}</td>
+        <td>{{ adhesion.cotisation }}€</td>
+        <td>
+            {% if adhesion.isPaid == true and adhesion.isFree == false %}
+                <p class="mb-0">Le {{ adhesion.PaidAt ? adhesion.PaidAt|date('Y-m-d') : '' }} par {{ adhesion.paidBy }} <span class="text-muted">- {{ adhesion.refPaid }}</span>.</p>
+            {% elseif adhesion.isPaid == true and adhesion.isFree == true %}
+                <p class="mb-0">La cotisation est gratuite pour ce membre.</p>
+            {% else %}
+                <p class="mb-0">Cotisation non régularisée à ce jour.</p>
+            {% endif %}
+
+        </td>
+        <td>{{ adhesion.createAt ? adhesion.createAt|date('Y-m-d') : '' }}</td>
+        <td>{{ adhesion.updateAt ? adhesion.updateAt|date('Y-m-d') : '' }}</td>
+    </tr>
+{% else %}
+    <tr>
+        <td><input type="checkbox" name="checkboxListAdhesions" disabled></td>
+        <td colspan="6">L'association n'enregistre aucune adhesion active à ce moment.</td>
+    </tr>
+{% endfor %}

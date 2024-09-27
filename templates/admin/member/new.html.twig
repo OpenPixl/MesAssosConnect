@@ -1,0 +1,32 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}New Member{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="module" src="{{ asset('js/gestion/adhesion/new_edit.js') }}"></script>
+{% endblock %}
+
+{% block breadcrumb_content %}
+    {{ include('admin/include/_breadcrumb.html.twig', {
+        firstLabel : 'Adhesion',
+        firstLabel_route: 'mac_gestion_adhesion_index',
+        secondLabel : 'Nouvelle fiche',
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+    }) }}
+{% endblock %}
+
+{% block header_content %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Créer un compte sur MesAssosConnect</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+    <a class="btn btn-sm btn-outline-dark" href="{{ path('mac_admin_member_index') }}"> Retour</a><button class="btn btn-sm btn-outline-dark">{{ button_label|default('Ajouter') }}</button>
+    {{ include('admin/member/_form.html.twig') }}
+{% endblock %}

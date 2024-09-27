@@ -1,0 +1,24 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis text-decoration-none" href="{{ path('mac_admin_dashboard_index') }}">
+                {{ ux_icon('fa6-regular:house-duotone-solid', {height: '1rem', width: '1rem' }) }}
+                <span> Accueil</span>
+            </a>
+        </li>
+        {% if firstLabel is not null %}
+        <li class="breadcrumb-item">
+            <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{ path(firstLabel_route) }}">{{ firstLabel }}</a>
+        </li>
+        {% endif %}
+        {% if secondLabel is not null %}
+        <li class="breadcrumb-item active" aria-current="page">
+            {% if secondLabel_route is null %}
+                {{ secondLabel }}
+            {% else %}
+                <a class="link-body-emphasis fw-semibold text-decoration-none" href="{{ secondLabel_route }}">{{ secondLabel }}</a>
+            {% endif %}
+        </li>
+        {% endif %}
+    </ol>
+</nav>

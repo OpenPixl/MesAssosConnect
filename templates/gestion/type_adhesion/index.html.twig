@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}typeAdhesion index{% endblock %}
+
+{% block body %}
+    <h1>typeAdhesion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>PriceCotisation</th>
+                <th>StartAt</th>
+                <th>EndAt</th>
+                <th>Notes</th>
+                <th>CreateAt</th>
+                <th>UpdateAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_adhesion in type_adhesions %}
+            <tr>
+                <td>{{ type_adhesion.id }}</td>
+                <td>{{ type_adhesion.name }}</td>
+                <td>{{ type_adhesion.priceCotisation }}</td>
+                <td>{{ type_adhesion.startAt ? type_adhesion.startAt|date('Y-m-d') : '' }}</td>
+                <td>{{ type_adhesion.endAt ? type_adhesion.endAt|date('Y-m-d') : '' }}</td>
+                <td>{{ type_adhesion.notes }}</td>
+                <td>{{ type_adhesion.createAt ? type_adhesion.createAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ type_adhesion.updateAt ? type_adhesion.updateAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_gestion_type_adhesion_show', {'id': type_adhesion.id}) }}">show</a>
+                    <a href="{{ path('app_gestion_type_adhesion_edit', {'id': type_adhesion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gestion_type_adhesion_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New typeAdhesion{% endblock %}
+
+{% block body %}
+    <h1>Create new typeAdhesion</h1>
+
+    {{ include('gestion/type_adhesion/_form.html.twig') }}
+
+    <a href="{{ path('app_gestion_type_adhesion_index') }}">back to list</a>
+{% endblock %}

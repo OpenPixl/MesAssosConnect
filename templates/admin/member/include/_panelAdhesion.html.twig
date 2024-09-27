@@ -1,0 +1,26 @@
+<div>
+    <div class="float-start"><p class="h4">Liste des adhésions en cours de validité</p></div>
+    <div class="float-end">
+        <button class="btn btn-sm btn-outline-dark btnShowModalAdhesion" data-bs-whatever="ADD-Ajout d'une Adhesion-{{ member.id }}">Ajouter une adhésion</button>
+        <button class="btn btn-sm btn-outline-dark btnShowModalAdhesion" data-bs-toggle="modal" data-bs-target="#modalAdhesion" data-bs-whatever="RENEW-Ajout d'une Adhesion">Renouveler une adhésion</button>
+        <button class="btn btn-sm btn-outline-dark btnShowModalAdhesion" data-bs-toggle="modal" data-bs-target="#modalAdhesion" data-bs-whatever="EDIT-Modifier d'une recommandation">Modifier une adhésion</button>
+        <button class="btn btn-sm btn-outline-dark btnShowModalAdhesion" data-bs-toggle="modal" data-bs-target="#modalAdhesion" data-bs-whatever="DEL-Supprimer d'une recommandation">Supprimer une adhésion</button>
+    </div>
+</div>
+
+<table class="table table-sm table-hover">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Association</th>
+        <th>Type d'adhésion</th>
+        <th>Tarif Cotisation</th>
+        <th>Règlée</th>
+        <th>CreateAt</th>
+        <th>UpdateAt</th>
+    </tr>
+    </thead>
+    <tbody>
+        {{ include('admin/member/include/_panelAdhesionList.html.twig') }}
+    </tbody>
+</table>

@@ -1,0 +1,28 @@
+<aside class="aside-xl float-start">
+    <div class="flex-shrink-0 p-3">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <img src="{{ asset('images/jpg/user.jpg') }}" alt="userName" class="img-fluid rounded-circle">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <p class="my-2 text-center text-muted"><strong>Nom & Prénom</strong></p>
+            </div>
+        </div>
+        <ul class="list-unstyled ps-0">
+            <li class="mb-1">
+                <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                    ESPACE Associations
+                </button>
+                <div class="collapse" id="home-collapse" style="">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="{{ path('mac_admin_member_index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Utilisateurs MAC</a></li>
+                        <li><a href="{{ path('mac_admin_association_index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Association MAC</a></li>
+                        <li><a href="{{ path('mac_gestion_adhesion_index')}}" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Adhésions</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</aside>

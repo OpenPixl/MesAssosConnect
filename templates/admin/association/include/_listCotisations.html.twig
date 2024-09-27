@@ -1,0 +1,14 @@
+{% for cotisation in association.typeadhesions %}
+    <tr>
+        <td><input type="checkbox" class="checkbox" name="checkboxListCotisations" value="{{ cotisation.id }}"></td>
+        <td class="col-2">{{ cotisation.name }}</td>
+        <td class="col-1">{{ cotisation.adhesions|length }} adhésion</td>
+        <td>{{ cotisation.priceCotisation }} €</td>
+        <td>Du {{ cotisation.startAt ? cotisation.startAt|date('Y-m-d') : '' }} au {{ cotisation.endAt ? cotisation.endAt|date('Y-m-d') : '' }}</td>
+    </tr>
+{% else %}
+    <tr>
+        <td><input type="checkbox" class="checkbox" name="checkboxListCotisations" value="0" disabled></td>
+        <td colspan="4">L'association n'enregistre aucune adhesion active à ce moment.</td>
+    </tr>
+{% endfor %}

@@ -1,0 +1,67 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Member index{% endblock %}
+
+{% block breadcrumb_content %}
+    {{ include('admin/include/_breadcrumb.html.twig', {
+        firstLabel : 'Membre',
+        firstLabel_route: 'mac_admin_member_index',
+        secondLabel : 'Index',
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+    }) }}
+{% endblock %}
+
+{% block header_content %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Liste des Comptes</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>
+                <th>Nom & prénom</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Tel mobile</th>
+                <th>Tel Fixe</th>
+                <th>Autre</th>
+                <th>Compte vérifié</th>
+                <th>Créer le</th>
+                <th>MàJ</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for member in members %}
+            <tr>
+                <td>{{ member.civility }} {{ member.firstName }} {{ member.lastName }}</td>
+                <td>{{ member.email }}</td>
+                <td>{{ member.roleMember }}</td>
+                <td>{{ member.mobilePhone }}</td>
+                <td>{{ member.homePhone }}</td>
+                <td>{{ member.workPhone }}</td>
+                <td>{{ member.isVerified ? 'Yes' : 'No' }}</td>
+                <td>{{ member.createAt ? member.createAt|date('Y-m-d') : '' }}</td>
+                <td>{{ member.updateAt ? member.updateAt|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('mac_admin_member_show', {'id': member.id}) }}">show</a>
+                    <a href="{{ path('mac_admin_member_edit', {'id': member.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('mac_admin_member_new') }}">Create new</a>
+{% endblock %}

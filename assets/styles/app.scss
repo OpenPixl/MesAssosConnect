@@ -1,0 +1,15 @@
+$primary-color: #900C3F;
+
+$width-side-small: 4rem;
+$width-side-large: 14rem;
+$width-content-small : calc(100% - 4rem);
+$width-content-large: calc(100% - 14rem);
+
+@import "~bootstrap/scss/bootstrap";
+
+//*** ------------- Import Styles for admin ---------------- ***//
+@import "app/public";
+@import "app/admin";
+@import "app/tomselect";
+
+@import "app/sidebar";

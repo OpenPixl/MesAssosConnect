@@ -1,0 +1,11 @@
+/mariadb/*.*
+/mariadb/*/
+/mariadb/undo003
+/mariadb/undo002
+/mariadb/undo001
+/mariadb/mariadb_upgrade_info
+/mariadb/ibtmp1
+/mariadb/ibdata1
+/mariadb/ib_logfile0
+/mariadb/ib_buffer_pool
+/mariadb/aria_log_control

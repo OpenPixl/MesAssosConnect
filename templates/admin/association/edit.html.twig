@@ -1,0 +1,42 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Edit Association{% endblock %}
+
+{% block breadcrumb_content %}
+    {{ include('admin/include/_breadcrumb.html.twig', {
+        firstLabel : 'Association',
+        firstLabel_route: 'mac_admin_association_index',
+        secondLabel : 'Editer',
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+    }) }}
+{% endblock %}
+
+{% block header_content %}
+    <div class="row">
+        <div class="col-12">
+            <h2>Modifier la fiche de l'association</h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+    <div class="row">
+        <div class="col">
+            <div class="float-start">
+                <a class="btn btn-sm btn-outline-dark" href="{{ path('mac_admin_association_index') }}"><i class="fa-regular fa-chevrons-left"></i> Retour</a>
+                <a class="btn btn-sm btn-outline-dark" href="{{ path('mac_admin_association_edit', {'id': association.id}) }}"><i class="fa-duotone fa-solid fa-pen-circle"></i> Mettre à jour</a>
+            </div>
+            <div class="float-end">
+                {{ include('admin/association/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+
+    {{ include('admin/association/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('mac_admin_association_index') }}">back to list</a>
+
+    {{ include('admin/association/_delete_form.html.twig') }}
+{% endblock %}
