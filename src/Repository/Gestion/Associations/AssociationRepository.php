@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Gestion\associations;
+namespace App\Repository\Gestion\Associations;
 
 use App\Entity\Gestion\Associations\Association;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

@@ -1,0 +1,33 @@
+{% extends '../../../base.html.twig' %}
+
+{% block title %}CampaignAdhesion index{% endblock %}
+
+{% block body %}
+    <h1>CampaignAdhesion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for campaign_adhesion in campaign_adhesions %}
+            <tr>
+                <td>{{ campaign_adhesion.id }}</td>
+                <td>
+                    <a href="{{ path('app_gestion_adhesions_campaign_adhesion_show', {'id': campaign_adhesion.id}) }}">show</a>
+                    <a href="{{ path('app_gestion_adhesions_campaign_adhesion_edit', {'id': campaign_adhesion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gestion_adhesions_campaign_adhesion_new') }}">Create new</a>
+{% endblock %}

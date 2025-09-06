@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Adhesion index{% endblock %}
+
+{% block body %}
+    <h1>Adhesion index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PriceCotisation</th>
+                <th>PayBy</th>
+                <th>PayAt</th>
+                <th>StartAt</th>
+                <th>FinishAt</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adhesion in adhesions %}
+            <tr>
+                <td>{{ adhesion.id }}</td>
+                <td>{{ adhesion.priceCotisation }}</td>
+                <td>{{ adhesion.payBy }}</td>
+                <td>{{ adhesion.payAt ? adhesion.payAt|date('Y-m-d') : '' }}</td>
+                <td>{{ adhesion.startAt ? adhesion.startAt|date('Y-m-d') : '' }}</td>
+                <td>{{ adhesion.finishAt ? adhesion.finishAt|date('Y-m-d') : '' }}</td>
+                <td>{{ adhesion.createdAt ? adhesion.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ adhesion.updatedAt ? adhesion.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_gestion_adhesions_adhesion_show', {'id': adhesion.id}) }}">show</a>
+                    <a href="{{ path('app_gestion_adhesions_adhesion_edit', {'id': adhesion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gestion_adhesions_adhesion_new') }}">Create new</a>
+{% endblock %}

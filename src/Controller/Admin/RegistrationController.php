@@ -30,28 +30,27 @@ class RegistrationController extends AbstractController
         $users = $memberRepository->findAll();
 
         $newuser = new Member();
+        $date = (new \DateTime());
+        $newuser->setMobilePhone('00 00 00 00 00');
+        $newuser->setBirthday($date);
+        $newuser->setIsVerified(1);
+
         $form = $this->createForm(RegistrationFormType::class, $newuser);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $roles = ['administrateur', 'president','copresident','secretaire','tresorier','benevole', 'salarie'];
-            $roleMember = $form->get('roleMember')->getData();
-            // encode the plain password
+                        // encode the plain password
             $newuser->setPassword(
                 $userPasswordHasher->hashPassword(
                     $newuser,
                     $form->get('password')->getData()
                 )
             );
-            $newuser->setMobilePhone('00.00.00.00.00');
+
             if(!$users){
                 $newuser->setRoles(["ROLE_SUPER_ADMIN"]);
             }else{
-                if(in_array($roleMember, $roles)) {
-                    $newuser->setRoles(["ROLE_ADMIN"]);
-                }else{
-                    $newuser->setRoles(["ROLE_MEMBER"]);
-                }
+                $newuser->setRoles(["ROLE_USER"]);
             }
             $entityManager->persist($newuser);
             $entityManager->flush();

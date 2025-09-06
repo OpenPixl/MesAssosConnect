@@ -2,9 +2,8 @@
 
 namespace App\Controller\Easy;
 
-use App\Entity\Gestion\typeAdhesion;
+use App\Entity\Gestion\adhesions\typeAdhesion;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 

@@ -1,81 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full bg-gray-100">
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
         {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('admin') }}
             <link href="https://cdn.jsdelivr.net/npm/tom-select/dist/css/tom-select.css" rel="stylesheet">
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
+            {{ encore_entry_script_tags('admin') }}
             <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
             <script type="application/javascript" src="https://cdn.jsdelivr.net/npm/tom-select/dist/js/tom-select.complete.min.js"></script>
+            <script src="https://kit.fontawesome.com/1fb9149f4c.js" crossorigin="anonymous"></script>
         {% endblock %}
     </head>
-    <body class="admin">
-        <header>
-            {% block header %}
-                {{ render(controller('App\\Controller\\Admin\\DashboardController::NavBar')) }}
-            {% endblock %}
-        </header>
-        <main id="main">
-            {{ include('admin/dashboard/include/side.html.twig') }}
-            <div id="content" class="float-end">
-                <div class="container-fluid py-3">
-                    {% block breadcrumb_content %}
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb breadcrumb-chevron p-3 bg-body-tertiary rounded-3">
-                                <li class="breadcrumb-item">
-                                    <a class="link-body-emphasis text-decoration-none" href="#">
-                                        {{ ux_icon('fa6-regular:house-duotone-solid', {height: '1rem', width: '1rem' }) }}
-                                        <span> Accueil</span>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a class="link-body-emphasis fw-semibold text-decoration-none" href="#">Library</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Data
-                                </li>
-                            </ol>
-                        </nav>
-                    {% endblock %}
+    <body class="h-screen flex flex-col bg-gray-800 bg-[url('http://127.0.0.1:8001/images/jpg/landes.jpg')] bg-cover bg-center" data-page="{{ app.current_route }}">
+        {% block navbar %}
+            {{ include('admin/dashboard/include/navbar_admin.html.twig') }}
+        {% endblock %}
+        <main class="flex-1 mt-2 mb-2 overflow-auto px-2">
+            <div class="flex flex-col space-y-2 h-full">
+                <div class="flex-none">
                     {% block header_content %}
-                        <div class="row">
-                            <div class="col-12">
-                                <h2>Bloc content admin</h2>
-                            </div>
-                        </div>
+                        {{ include('composants/page_headings.html.twig') }}
                     {% endblock %}
-                    {% block main_content %}
-                    <div class="row">
-                        <div class="col-12">
-                            <h2>LISTE</h2>
+                </div>
+                <div class="flex-1">
+                    <div class="w-full h-full flex flex-row gap-2">
+                        <div class="h-full w-1/5">
+                            <div class="h-full bg-white shadow-sm rounded">
+                                <div class="flex flex-col space-y-2 h-full">
+                                    <div class="flex-none">
+                                        {% block sidebar_header %}
+                                        {% endblock %}
+
+                                        <div class="peer-checked:bg-sky-600"></div>
+                                    </div>
+                                    <div class="flex-1">
+                                        {% block sidebar_content %}
+                                        {% endblock %}
+                                    </div>
+                                    <div class="flex-none">
+                                        {% block sidebar_footer %}
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="h-full w-4/5">
+                            <div class="flex flex-col space-y-2 h-full">
+                                <div class="flex-none">
+                                    <div class="flex items-center px-2 py-2 bg-white shadow-sm rounded gap-1">
+                                        {% block utils %}
+                                            <h3 class="font-semibold">Outils</h3>
+                                        {% endblock %}
+                                    </div>
+
+                                </div>
+                                <div class="flex-1">
+                                    <div class="bg-white shadow-sm rounded h-full px-2 py-2" id="main_content">
+                                        {% block main_content %}
+                                        {% endblock %}
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-                    {% endblock %}
                 </div>
             </div>
-            {% block modals %}
-            <section>
-
-            </section>
-            {% endblock %}
         </main>
-        <footer class="container-fluid">
-            <div class="py-1">
-                <div class="d-flex flex-column flex-sm-row justify-content-between py-1 my-1 border-top">
-                    <p class="mb-0">© 2024 Company, Inc. All rights reserved.</p>
-                    <ul class="list-unstyled d-flex mb-0">
-                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#twitter"></use></svg></a></li>
-                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#instagram"></use></svg></a></li>
-                        <li class="ms-3"><a class="link-body-emphasis" href="#"><svg class="bi" width="24" height="24"><use xlink:href="#facebook"></use></svg></a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
+        {{ include('admin/dashboard/include/footer.html.twig') }}
+        {{ include('composants/modules/notifications.html.twig') }}
+        {{ include('composants/modules/dialog.html.twig') }}
     </body>
 </html>

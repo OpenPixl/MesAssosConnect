@@ -1,0 +1,22 @@
+{% extends '../../../base.html.twig' %}
+
+{% block title %}CampaignAdhesion{% endblock %}
+
+{% block body %}
+    <h1>CampaignAdhesion</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ campaign_adhesion.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gestion_adhesions_campaign_adhesion_index') }}">back to list</a>
+
+    <a href="{{ path('app_gestion_adhesions_campaign_adhesion_edit', {'id': campaign_adhesion.id}) }}">edit</a>
+
+    {{ include('gestion/adhesions/campaign_adhesion/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller\Gestion\associations;
+namespace App\Controller\Gestion\Associations;
 
 use App\Entity\Gestion\Associations\Association;
-use App\Form\Gestion\associations\AssociationType;
+use App\Form\Gestion\Associations\AssociationType;
 use App\Repository\Gestion\Associations\AssociationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,26 +29,89 @@ class AssociationController extends AbstractController
     #[Route('/', name: 'mac_admin_association_index', methods: ['GET'])]
     public function index(AssociationRepository $associationRepository): Response
     {
-        return $this->render('admin/association/index.html.twig', [
+        return $this->render('gestion/associations/association/index.html.twig', [
             'associations' => $associationRepository->findAll(),
         ]);
     }
 
     #[Route('/new', name: 'mac_admin_association_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $association = new Association();
-        $form = $this->createForm(AssociationType::class, $association);
+        $form = $this->createForm(AssociationType::class, $association,[
+            'action' => $this->generateUrl('mac_admin_association_new'),
+            'method' => 'POST',
+            'attr' => [
+                'id'=>'formAssociation'
+            ]
+        ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($association);
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid()){
 
-            return $this->redirectToRoute('mac_admin_association_index', [], Response::HTTP_SEE_OTHER);
+                //Insertion du code d'ajout d'une image
+                $logoFile = $form->get('logoFile')->getData();
+                $name = $form->get('name')->getData();
+                $slugAsso = $slugger->slug($name);
+
+                if($logoFile){
+
+                    $pathdir = $this->getParameter('association_directory').$slugAsso."/logo/";
+                    dd($pathdir);
+                    // Normalisation du nom de fichier
+                    $originalFilename = pathinfo($logoFile->getClientOriginalName(), PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $slugAsso.'-'.$safeFilename.'.'.$logoFile->guessExtension();
+                    try {
+                        if (is_dir($pathdir)){
+                            $logoFile->move(
+                                $this->getParameter('association_directory').$slugAsso."/logo/",
+                                $newFilename
+                            );
+                        }else{
+                            // Création du répertoire s'il n'existe pas.
+                            mkdir($pathdir."/", 0775, true);
+                            // Déplacement de la photo
+                            $logoFile->move(
+                                $this->getParameter('association_directory').$slugAsso."/logo/",
+                                $newFilename
+                            );
+                        }
+                    } catch (FileException $e) {
+                        // ... handle exception if something happens during file upload
+                    }
+                    $association->setLogoName($newFilename);
+                }
+
+                $entityManager->persist($association);
+                $entityManager->flush();
+
+                $view = $this->render('gestion/associations/association/_form.html.twig', [
+                    'association' => $association,
+                    'form' => $form
+                ]);
+
+                return $this->json([
+                    'code' => 200,
+                    'message' => 'Une nopuvelle association a été paramétrer dans l\'application',
+                    'formView' => $view->getContent(),
+                ]);
+            }
+
+            $view = $this->renderView('gestion/associations/association/_form.html.twig', [
+                'assocation' => $association,
+                'form' => $form
+            ]);
+
+            return $this->json([
+                'code' => 422,
+                'message' => 'Le formulaire présente une ou des erreurs.<br><span class="mt-1 mb-1 fw-semibold text-warning">'. implode(', ', $this->getFormErrors($form)). '</span><br>A vous de corriger celles-ci',
+                'formView' => $view,
+            ],200);
         }
 
-        return $this->render('admin/association/new.html.twig', [
+        return $this->render('gestion/associations/association/new.html.twig', [
             'association' => $association,
             'form' => $form,
         ]);
@@ -69,7 +132,7 @@ class AssociationController extends AbstractController
         }
 
         // view
-        $view = $this->render('admin/association/_form.html.twig', [
+        $view = $this->render('gestion/associations/association/_form.html.twig', [
             'association' => $association,
             'idMember' =>$idMember,
             'form' => $form
@@ -85,7 +148,7 @@ class AssociationController extends AbstractController
     #[Route('/{id}', name: 'mac_admin_association_show', methods: ['GET'])]
     public function show(Association $association): Response
     {
-        return $this->render('admin/association/show.html.twig', [
+        return $this->render('gestion/associations/association/show.html.twig', [
             'association' => $association,
         ]);
     }
@@ -158,7 +221,7 @@ class AssociationController extends AbstractController
                 }
                 $entityManager->flush();
 
-                $view = $this->render('admin/association/_form.html.twig', [
+                $view = $this->render('gestion/associations/association/_form.html.twig', [
                     'association' => $association,
                     'form' => $form
                 ]);
@@ -170,7 +233,7 @@ class AssociationController extends AbstractController
                 ]);
             }
 
-            $view = $this->renderView('admin/association/_form.html.twig', [
+            $view = $this->renderView('gestion/associations/association/_form.html.twig', [
                 'assocation' => $association,
                 'form' => $form
             ]);
@@ -184,7 +247,7 @@ class AssociationController extends AbstractController
 
         }
 
-        return $this->render('admin/association/edit.html.twig', [
+        return $this->render('gestion/associations/association/edit.html.twig', [
             'association' => $association,
             'form' => $form,
         ]);
@@ -203,7 +266,7 @@ class AssociationController extends AbstractController
         }
 
         // view
-        $view = $this->render('admin/association/_form.html.twig', [
+        $view = $this->render('gestion/associations/association/_form.html.twig', [
             'association' => $association,
             'form' => $form
         ]);

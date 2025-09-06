@@ -1,0 +1,30 @@
+<div class="flex-none">
+    <div class="">
+        <img src="{{ asset('images/jpg/spdm.jpg') }}" alt="" class="h-18 w-full object-cover rounded-t lg:h-24" />
+    </div>
+    <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+            <div class="flex">
+                {% if association.logoName is empty or association.logoName is null  %}
+                    <img
+                            src="{{ asset('images/svg/logoViergeAsso.svg') }}"
+                            alt="logo de vierge" class="size-18 rounded-full shadow-xl object-cover ring ring-sky-700 sm:size-24"
+                    />
+                {% else %}
+                <img
+                    src="{{ asset('associations/'~association.slug~'/logo/'~association.logoName)|imagine_filter('association_card') }}"
+                    alt="logo de l'association {{ association.name }}" class="size-18 rounded-full shadow-xl object-cover ring ring-sky-700 sm:size-24"
+                />
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="px-2 py-3 -mt-8">
+        <h3 class="font-semibold text-sky-900 pb-1 text-end uppercase">{{ association.name }}</h3>
+        <p class="text-sm text-end">
+            {{ association.address }}
+            {% if association.bisAddress is not null %}<br>{{ association.bisAddress }}{% else %}{% endif %}
+            <br>{{ association.zipcode }} {{ association.city }}
+        </p>
+    </div>
+</div>

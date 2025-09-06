@@ -4,26 +4,23 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="module" src="{{ asset('js/gestion/adhesion/new_edit.js') }}"></script>
 {% endblock %}
 
-{% block breadcrumb_content %}
-    {{ include('admin/include/_breadcrumb.html.twig', {
-        firstLabel : 'Adhesion',
+{% block header_content %}
+    {{ include('composants/page_headings.html.twig', {
+        firstLabel : 'Adherent',
         firstLabel_route: 'mac_gestion_adhesion_index',
         secondLabel : 'Nouvelle fiche',
         secondLabel_route: null,
         thirdLabel : null,
         thirdLabel_route: null,
+        label: 'Créer un compte sur MesAssosConnect'
     }) }}
 {% endblock %}
 
-{% block header_content %}
-    <div class="row">
-        <div class="col-12">
-            <h2>Créer un compte sur MesAssosConnect</h2>
-        </div>
-    </div>
+{% block utils %}
+    {% include 'composants/buttons/button_utils.html.twig' with {'href' : path('mac_admin_association_index'), 'icon' : '<i class="fa-light fa-chevrons-left"></i>','text':' Retour' } %}
+    {% include 'composants/buttons/button_submit.html.twig' with {'id': 'cu-btnutils', 'icon' : '<i class="fa-light fa-check"></i>','text':'Valider' } %}
 {% endblock %}
 
 {% block main_content %}

@@ -1,0 +1,71 @@
+{{ form_start(form) }}
+<div class="text-start">
+    <div class="mb-1">
+        {% include 'composants/forms/input_text_horizontal.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-9/12',
+            'label' : form.cotisation.vars.label,
+            form : form.cotisation,
+            'placeholder': null,
+            'input_width' : 'w-64',
+            'oninput': ''
+        } %}
+    </div>
+    <div class="mb-1">
+        {% include 'composants/forms/input_text_horizontal.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-9/12',
+            'label' : form.priceCotisation.vars.label,
+            form : form.priceCotisation,
+            'placeholder': null,
+            'input_width' : 'w-24',
+            'oninput': ''
+        } %}
+    </div>
+    <p>La cotisation couvre la période de :</p>
+    <div class="mb-1">
+        {% include 'composants/forms/input_text_horizontal.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-9/12',
+            'label' : 'du',
+            form : form.startAt,
+            'placeholder': '01/01/1900',
+            'input_width' : 'w-32',
+            'oninput': 'formatDate(this)'
+        } %}
+    </div><div class="mb-1">
+        {% include 'composants/forms/input_text_horizontal.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-3/12',
+            'label' : 'au',
+            form : form.finishAt,
+            'placeholder': '01/01/1900',
+            'input_width' : 'w-32',
+            'oninput': 'formatDate(this)'
+        } %}
+    </div>
+    <p>Paiement de la cotisation :</p>
+    <div class="mb-1">
+        {% include 'composants/forms/input_text_horizontal.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-9/12',
+            'label' : 'Paiement par',
+            form : form.payBy,
+            'placeholder': '01/01/1900',
+            'input_width' : 'w-32',
+            'oninput': null
+        } %}
+    </div>
+    <div class="mb-1">
+        {% include 'composants/forms/input_text_horizontal.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-9/12',
+            'label' : 'Paiement en date du',
+            form : form.payAt,
+            'placeholder': '01/01/1900',
+            'input_width' : 'w-32',
+            'oninput': 'formatDate(this)'
+        } %}
+    </div>
+</div>
+{{ form_end(form) }}

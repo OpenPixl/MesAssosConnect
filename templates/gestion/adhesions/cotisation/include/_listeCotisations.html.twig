@@ -1,0 +1,28 @@
+<h2 class="text-xl text-slate-800 mb-2">Liste des cotisations de l'association {{ association.name }}</h2>
+<table class="min-w-full divide-y divide-gray-300">
+    <thead>
+    <tr>
+        <th class="text-left text-sm font-semibold text-gray-900">Id</th>
+        <th class="text-left text-sm font-semibold text-gray-900">Name</th>
+        <th class="text-left text-sm font-semibold text-gray-900">Cotisation</th>
+        <th class="text-left text-sm font-semibold text-gray-900">actions</th>
+    </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+    {% for cotisation in cotisations %}
+        <tr class="bg-white hover:bg-gray-100/70">
+            <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">{{ cotisation.id }}</td>
+            <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">{{ cotisation.name }}</td>
+            <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">{{ cotisation.cotisation }}€</td>
+            <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">
+                <a href="{{ path('mac_gestion_cotisation_show', {'id': cotisation.id}) }}">show</a>
+                <a href="{{ path('mac_gestion_cotisation_edit', {'id': cotisation.id}) }}">edit</a>
+            </td>
+        </tr>
+    {% else %}
+        <tr class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0 flex flex-row items-center">
+            <td colspan="6">Nous ne trouvons pas de cotisations pour cette association</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

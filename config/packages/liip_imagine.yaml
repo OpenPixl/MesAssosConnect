@@ -12,21 +12,22 @@ liip_imagine:
     filter_sets:
         association_card:
             quality: 75
+            format: png
             filters:
                 thumbnail:
-                    size: [ 150, 150 ]
+                    size: [ 96, 96 ]
                     mode: inset
                 background:
                     color: '#fff'
-                    size: [ 150, 150 ]
+                    size: [ 96, 96 ]
                     position: center
             post_processors:
                 optipng: { strip_all: true, level: 5 }
         association_card_png:
-            quality: 150
+            quality: 75
             filters:
                 thumbnail:
-                    size: [ 150, 150 ]
+                    size: [ 300, 150 ]
                     mode: inset
             post_processors:
                 optipng: { strip_all: true, level: 5 }

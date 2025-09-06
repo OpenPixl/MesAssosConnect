@@ -1,0 +1,9 @@
+<div class="px-2 py-3 flex flex-row justify-between">
+    <div>
+        {% include 'composants/buttons/button_success.html.twig' with {'id': '', 'href' : path('mac_admin_association_index'), 'icon' : '<i class="fa-regular fa-chevrons-left"></i>','text':'Retour' } %}
+        {% include 'composants/buttons/button_success.html.twig' with {'id': '','href' : path('mac_admin_association_edit', {'id': association.id}), 'icon' : '<i class="fa-duotone fa-light fa-gear"></i>','text':'Paramètres' } %}
+    </div>
+    <div>
+        {{ include('gestion/associations/association/_delete_form.html.twig') }}
+    </div>
+</div>

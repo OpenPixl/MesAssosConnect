@@ -1,0 +1,48 @@
+{{ form_start(form) }}
+<div class="text-start">
+    <p class="text-sm">
+        Une campagne d'adhésion s'ouvre aux dates d'ouverture et de fermeture de votre saison d'activité paramètré précédement.
+        <br>
+        Vous pouvez toutefois modifier cette campagne dans le formulaire ci-dessous ou valider les informations proposées par le logiciel
+    </p>
+    <div class="mt-3 mb-3">
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : form.name.vars.label,
+                form : form.name,
+                'placeholder': 'Titre de la campagne',
+                'input_width' : 'w-full',
+                'oninput': ''
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : form.startAt.vars.label,
+                form : form.startAt,
+                'placeholder': 'Titre de la campagne',
+                'input_width' : 'w-52',
+                'oninput': ''
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : form.finishAt.vars.label,
+                form : form.finishAt,
+                'placeholder': 'Titre de la campagne',
+                'input_width' : 'w-52',
+                'oninput': ''
+            } %}
+        </div>
+    </div>
+
+    <p class="text-sm">
+        Une fois validé, vous pourrez créer les adhésions de vos membres pour la période en cours.
+    </p>
+</div>
+{{ form_end(form) }}

@@ -2,7 +2,7 @@
 
 namespace App\Controller\Easy;
 
-use App\Entity\Admin\Association;
+use App\Entity\Gestion\Associations\Association;
 use App\Form\gestion\AdhesionType;
 use App\Form\gestion\typeAdhesionType;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;

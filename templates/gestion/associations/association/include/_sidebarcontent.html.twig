@@ -1,0 +1,23 @@
+<div class="px-2 py-3 grid grid-cols-2 gap-2">
+
+    {% include 'composants/buttons/button_sidebar.html.twig' with {
+        'id' : '',
+        'array':'',
+        'href' : path ('mac_admin_association_show', {'id': association.id}),
+        'icon' : '<i class="fa-light fa-users fa-xl" aria-hidden="true"></i>','text':'Gestion des membres' }
+    %}
+
+    {% include 'composants/buttons/button_sidebar.html.twig' with {
+        'id' : '',
+        'array':'',
+        'href' : path ('mac_gestion_cotisation_indexbyAsso', {'idAsso': association.id}),
+        'icon' : '<i class="fa-light fa-money-check-dollar-pen fa-xl" aria-hidden="true"></i>','text':'Gestion des activités' }
+    %}
+
+    {% include 'composants/buttons/button_sidebar.html.twig' with {
+    'id' : '',
+    'array':'',
+    'href' : path ('mac_gestion_cotisation_indexbyAsso', {'idAsso': association.id}),
+    'icon' : '<i class="fa-light fa-money-check-dollar-pen fa-xl" aria-hidden="true"></i>','text':'Gestion des cotisations' }
+    %}
+</div>

@@ -1,0 +1,12 @@
+{{ form_start(form, {'attr': {'autocomplete' : 'off'}}) }}
+<div class="grid max-w-lg grid-cols-1 lg:max-w-xs">
+    {% include 'composants/forms/inputs/input_search.html.twig' with {
+        form : form.slug
+    } %}
+    <div id="searchResults" class="hidden absolute top-14 right-34 z-10 mt-2 w-56 border border-sky-700 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+        <p class="block px-2 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Nom Prénom</p>
+        <p class="block px-2 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Nom Prénom</p>
+        <p class="block px-2 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Nom Prénom</p>
+    </div>
+</div>
+{{ form_end(form) }}

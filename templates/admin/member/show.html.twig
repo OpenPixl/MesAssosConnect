@@ -4,123 +4,30 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="module" src="{{ asset('js/admin/member/show.js') }}"></script>
 {% endblock %}
 
-{% block breadcrumb_content %}
-    {{ include('admin/include/_breadcrumb.html.twig', {
+{% block header_content %}
+    {{ include('composants/page_headings.html.twig', {
         firstLabel : 'Membre',
         firstLabel_route: 'mac_admin_member_index',
         secondLabel : 'Fiche',
         secondLabel_route: null,
         thirdLabel : null,
         thirdLabel_route: null,
+        label : 'Mon espace'
     }) }}
 {% endblock %}
 
-{% block header_content %}
-    <div class="row">
-        <div class="col-12">
-            <h2>Fiche du Membre : <span class="text-muted">{{ member.firstName }} {{ member.lastName }}</span></h2>
-        </div>
-    </div>
+{% block sidebar_header %}
+{% endblock %}
+
+{% block sidebar_content %}
+{% endblock %}
+
+{% block sidebar_footer %}
 {% endblock %}
 
 {% block main_content %}
-    {# Ligne de bouton commande sur la fiche #}
-    <div class="row">
-        <div class="col">
-            <div class="float-start">
-                <a class="btn btn-sm btn-outline-dark" href="{{ path('mac_admin_member_index') }}"><i class="fa-regular fa-chevrons-left"></i> Retour</a>
-                <a class="btn btn-sm btn-outline-dark" href="{{ path('mac_admin_member_edit', {'id': member.id}) }}"><i class="fa-duotone fa-solid fa-pen-circle"></i> Modifier</a>
-            </div>
-            <div class="float-end">
-                {{ include('admin/member/_delete_form.html.twig') }}
-            </div>
-        </div>
-    </div>
-    {# Ligne de navigation panel #}
-    <ul class="nav nav-underline" role="tablist">
-        <li class="nav-item" role="presentation">
-            <a class="nav-link active" aria-current="page" data-bs-toggle="tab" data-bs-target="#infos_géné" type="button" role="tab" aria-controls="infos_géné" aria-selected="true">Informations générales</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" aria-current="page" data-bs-toggle="tab" data-bs-target="#members" type="button" role="tab" aria-controls="members" aria-selected="true">Adhésions</a>
-        </li>
-        <li class="nav-item" role="presentation">
-            <a class="nav-link" aria-current="page" data-bs-toggle="tab" data-bs-target="#activities" type="button" role="tab" aria-controls="activities" aria-selected="true">Activités</a>
-        </li>
-    </ul>
-    {# Les panels #}
 
-    <div class="tab-content my-3" id="myTabContent">
-        <div class="tab-pane fade show active" id="infos_géné" role="tabpanel" aria-labelledby="infos_géné" tabindex="0">
-            <p>Ce compte à été créée le {{ member.createAt|date('Y-m-d')}} et modifiée le {{ member.updateAt|date('Y-m-d')}}</p>
-            <div class="row">
-                <div class="col-6">
-                    <dl class="row">
-                        <dt class="col-sm-3">Nom du compte</dt>
-                        <dd class="col-sm-9">
-                            <p class="mb-0">
-                                {{ member.firstName }} {{ member.lastName }} né le {{ member.birthday|date('Y-m-d H:i:s') }}
-                            </p>
-                        </dd>
-                        <dt class="col-sm-3">Adresse</dt>
-                        <dd class="col-sm-9">
-                            <p class="mb-0">
-                                {{ member.address }}
-                                {% if member.bisAddress is not null %}<br>{{ member.bisAddress }}{% else %}{% endif %}
-                                <br>{{ member.zipcode }} {{ member.city }}
-                            </p>
-                        </dd>
-                    </dl>
-                    <dl class="row">
-                        <dt class="col-sm-3">Contacts</dt>
-                        <dd class="col-sm-9">
-                            <p class="mb-0">
-                                <i class="fa-sharp-duotone fa-solid fa-phone-office"></i> :{% if member.mobilePhone is not null %}{{ member.mobilePhone }}{% else %}<span class="badge text-bg-light">Non renseigné</span>{% endif %}<br>
-                                <i class="fa-regular fa-at"></i> : {% if member.Email is not null %}{{ member.Email }}{% else %}<span class="badge text-bg-light">Non renseigné</span>{% endif %}
-                            </p>
-                        </dd>
-                    </dl>
-                </div>
-                <div class="col-6">
-
-                </div>
-            </div>
-        </div>
-        <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-            {{ include('admin/member/include/_panelAdhesion.html.twig') }}
-        </div>
-        <div class="tab-pane fade" id="activities" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-            {{ include('admin/member/include/_panelActivities.html.twig') }}
-
-        </div>
-        <div class="tab-pane fade" id="disabled-tab-pane" role="tabpanel" aria-labelledby="disabled-tab" tabindex="0">...</div>
-    </div>
 {% endblock %}
 
-{% block modals %}
-    <!-- Modal -->
-    <div class="modal fade" id="modalAdhesion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Adhésions</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                            <span class="visually-hidden">Chargement ...</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button id="submitAdhesion" type="button" class="btn btn-sm btn-primary">Ajouter</button>
-                    <button id="closedModal" type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endblock %}

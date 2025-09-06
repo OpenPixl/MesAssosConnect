@@ -1,4 +1,4 @@
-{% extends '../../../admin.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}Association index{% endblock %}
 
@@ -28,7 +28,7 @@
         </div>
         <div class="flex-1 items-center">
             <p class="text-sm text-end">
-                <span class="text-gray-400"><i class="fa-solid fa-users"></i></span> {{ association.adhesions|length }} Membres
+                <span class="text-gray-400"><i class="fa-solid fa-users"></i></span> {{ association.adherents|length }} Membres
             </p>
         </div>
 
@@ -45,8 +45,8 @@
 {% block sidebar_footer %}
     <div class="px-2 py-3 flex flex-row justify-between">
         <div>
-            {% include '../../../composants/buttons/button_success.html.twig' with {'id':'', 'href' : path('mac_admin_dashboard_index'), 'icon' : '<i class="fa-regular fa-chevrons-left"></i>','text':'Retour' } %}
-            {% include '../../../composants/buttons/button_success.html.twig' with {'id':'', 'href' : path('mac_admin_association_new'), 'icon' : '<i class="fa-duotone fa-solid fa-pen-circle"></i>','text':'Ajouter une Asso' } %}
+            {% include 'composants/buttons/button_success.html.twig' with {'id':'', 'href' : path('mac_admin_dashboard_index'), 'icon' : '<i class="fa-regular fa-chevrons-left"></i>','text':'Retour' } %}
+            {% include 'composants/buttons/button_success.html.twig' with {'id':'', 'href' : path('mac_admin_association_new'), 'icon' : '<i class="fa-duotone fa-solid fa-pen-circle"></i>','text':'Ajouter une Asso' } %}
         </div>
     </div>
 {% endblock %}

@@ -3,7 +3,8 @@
 namespace App\Entity\Admin;
 
 use ApiPlatform\Metadata\ApiResource;
-use App\Entity\Gestion\Adhesion;
+use App\Entity\Gestion\Adhesions\Adherent;
+use App\Entity\Gestion\Associations\CompoAssociation;
 use App\Repository\Admin\MemberRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MemberRepository::class)]
 #[ORM\HasLifecycleCallbacks]
@@ -26,6 +28,8 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[Assert\NotBlank(message: "L'email est obligatoire.")]
+    #[Assert\Email(message: "L'adresse email n'est pas valide.")]
     private ?string $email = null;
 
     /**
@@ -40,11 +44,8 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $roleMember = null;
-
     #[ORM\Column(length: 5, nullable: true)]
-    private ?string $civility = null;
+    private ?string $civility = 'M.';
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $firstName = null;
@@ -64,7 +65,7 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $city = null;
 
-    #[ORM\Column(length: 14)]
+    #[ORM\Column(length: 14, nullable: true)]
     private ?string $mobilePhone = null;
 
     #[ORM\Column(length: 14, nullable: true)]
@@ -88,28 +89,25 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updateAt = null;
 
-    /**
-     * @var Collection<int, CompoAssociation>
-     */
-    #[ORM\OneToMany(targetEntity: CompoAssociation::class, mappedBy: 'refAdherent')]
-    private Collection $compoAssociations;
-
     #[ORM\Column]
     private bool $isVerified = false;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Assert\NotBlank(message: "La date de naissance est obligatoire.")]
     private ?\DateTimeInterface $birthday = null;
 
+    #[ORM\Column(type: 'integer')]
+    private ?int $typeMember = 0;
+
     /**
-     * @var Collection<int, Adhesion>
+     * @var Collection<int, Adherent>
      */
-    #[ORM\ManyToMany(targetEntity: Adhesion::class, mappedBy: 'members')]
-    private Collection $adhesions;
+    #[ORM\OneToMany(targetEntity: Adherent::class, mappedBy: 'member')]
+    private Collection $adherents;
 
     public function __construct()
     {
-        $this->compoAssociations = new ArrayCollection();
-        $this->adhesions = new ArrayCollection();
+        $this->adherents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -185,18 +183,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    public function getRoleMember(): ?string
-    {
-        return $this->roleMember;
-    }
-
-    public function setRoleMember(string $roleMember): static
-    {
-        $this->roleMember = $roleMember;
-
-        return $this;
     }
 
     public function getCivility(): ?string
@@ -393,36 +379,6 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, CompoAssociation>
-     */
-    public function getCompoAssociations(): Collection
-    {
-        return $this->compoAssociations;
-    }
-
-    public function addCompoAssociation(CompoAssociation $compoAssociation): static
-    {
-        if (!$this->compoAssociations->contains($compoAssociation)) {
-            $this->compoAssociations->add($compoAssociation);
-            $compoAssociation->setRefAdherent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCompoAssociation(CompoAssociation $compoAssociation): static
-    {
-        if ($this->compoAssociations->removeElement($compoAssociation)) {
-            // set the owning side to null (unless already changed)
-            if ($compoAssociation->getRefAdherent() === $this) {
-                $compoAssociation->setRefAdherent(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function isVerified(): bool
     {
         return $this->isVerified;
@@ -440,28 +396,43 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->civility." ".$this->firstName." ".$this->lastName;
     }
 
-    /**
-     * @return Collection<int, Adhesion>
-     */
-    public function getAdhesions(): Collection
+    public function getTypeMember(): ?string
     {
-        return $this->adhesions;
+        return $this->typeMember;
     }
 
-    public function addAdhesion(Adhesion $adhesion): static
+    public function setTypeMember(?string $typeMember): static
     {
-        if (!$this->adhesions->contains($adhesion)) {
-            $this->adhesions->add($adhesion);
-            $adhesion->addMember($this);
+        $this->typeMember = $typeMember;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Adherent>
+     */
+    public function getAdherents(): Collection
+    {
+        return $this->adherents;
+    }
+
+    public function addAdherent(Adherent $adherent): static
+    {
+        if (!$this->adherents->contains($adherent)) {
+            $this->adherents->add($adherent);
+            $adherent->setMember($this);
         }
 
         return $this;
     }
 
-    public function removeAdhesion(Adhesion $adhesion): static
+    public function removeAdherent(Adherent $adherent): static
     {
-        if ($this->adhesions->removeElement($adhesion)) {
-            $adhesion->removeMember($this);
+        if ($this->adherents->removeElement($adherent)) {
+            // set the owning side to null (unless already changed)
+            if ($adherent->getMember() === $this) {
+                $adherent->setMember(null);
+            }
         }
 
         return $this;

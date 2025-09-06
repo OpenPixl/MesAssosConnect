@@ -25,3 +25,10 @@ services:
     # please note that last definitions always *replace* previous ones
     App\Command\UpdateCommand:
         tags: [ 'console.command' ]
+
+    App\Controller\Admin\SearchController:
+      tags:
+        - controller.service_arguments
+      public: true
+      arguments:
+        - '@fos_elastica.finder.member'

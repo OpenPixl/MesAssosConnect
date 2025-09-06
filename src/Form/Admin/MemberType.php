@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class MemberType extends AbstractType
 {
@@ -17,34 +19,15 @@ class MemberType extends AbstractType
     {
         $builder
             ->add('email')
-            ->add('roleMember', ChoiceType::class,[
-                'label' => 'Rôle',
-                'choices'  => [
-                    'Administrateur' => "administrateur",
-                    'Président.e' => 'president',
-                    'Coprésident' => 'copresident',
-                    'Secrétaire' => 'secretaire',
-                    'Trésorier.e' => 'tresorier',
-                    'Bénévole' => 'benevole',
-                    'Salarié.e' => 'salarie',
-                    'Adhérant' => "adhérant",
-                ],
-                'choice_attr' => [
-                    'Administrateur' => ['data-data' => 'administrateur'],
-                    'Adhérant' => ['data-data' => 'adherant'],
-                ],
-            ])
             ->add('typeMember', ChoiceType::class, [
                 'label' => 'Type de membre',
-                'attr' => [
-                    'class' => 'radio-inline'
-                ],
                 'choices'  => [
-                    'Physique' => 1,
-                    "Moral" => 2,
+                    'Personne physique' => 0,
+                    "Personne morale" => 1,
                 ],
                 'expanded' => true,
-                'multiple' => false
+                'multiple' => false,
+                'data' => 0
             ])
             ->add('civility', ChoiceType::class, [
                 'label' => 'Civilité',
@@ -60,10 +43,16 @@ class MemberType extends AbstractType
             ])
             ->add('firstName', TextType::class,[
                 'label' => 'Prénom',
+                'attr' => [
+                    'placeholder' => 'Prénom'
+                ],
                 'required' => false
             ])
             ->add('lastName', TextType::class,[
                 'label' => 'Nom',
+                'attr' => [
+                    'placeholder' => 'Nom'
+                ],
                 'required' => false
             ])
             ->add('birthday', DateType::class,[
@@ -77,30 +66,57 @@ class MemberType extends AbstractType
             ])
             ->add('address', TextType::class,[
                 'label' => 'Adresse',
+                'attr' => [
+                    'placeholder' => 'Adresse'
+                ],
                 'required' => false
             ])
             ->add('bisAddress', TextType::class,[
                 'label' => 'Complement',
+                'attr' => [
+                    'placeholder' => 'Complément'
+                ],
                 'required' => false
             ])
             ->add('zipcode', TextType::class,[
                 'label' => 'CP',
+                'attr' => [
+                    'placeholder' => 'CP'
+                ],
                 'required' => false
             ])
             ->add('city', TextType::class,[
                 'label' => 'Commune',
+                'attr' => [
+                    'placeholder' => 'Commune'
+                ],
                 'required' => false
             ])
             ->add('mobilePhone', TextType::class,[
-                'label' => 'Mobile',
-                'required' => false
+                'label' => 'Contacts Téléphoniques',
+                'attr' => [
+                    'placeholder' => '06 xx xx xx xx'
+                ],
+                'required' => false,
+                'constraints' => [
+                    new Assert\NotBlank([
+                        'message' => '- Le téléphone portable est obligatoire.'
+                    ]),
+                ],
+                'empty_data' => ''
             ])
             ->add('homePhone', TextType::class,[
                 'label' => 'Fixe',
+                'attr' => [
+                    'placeholder' => '05 xx xx xx xx'
+                ],
                 'required' => false
             ])
             ->add('workPhone', TextType::class,[
                 'label' => 'Travail',
+                'attr' => [
+                    'placeholder' => 'Travail'
+                ],
                 'required' => false
             ])
             ->add('isVerified', CheckboxType::class, [

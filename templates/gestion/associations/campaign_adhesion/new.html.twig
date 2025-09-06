@@ -1,0 +1,11 @@
+{% extends '../../../base.html.twig' %}
+
+{% block title %}New CampaignAdhesion{% endblock %}
+
+{% block body %}
+    <h1>Create new CampaignAdhesion</h1>
+
+    {{ include('gestion/adhesions/campaign_adhesion/_form.html.twig') }}
+
+    <a href="{{ path('app_gestion_adhesions_campaign_adhesion_index') }}">back to list</a>
+{% endblock %}

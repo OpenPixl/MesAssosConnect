@@ -1,4 +1,4 @@
-{% extends '../../../admin.html.twig' %}
+{% extends 'admin.html.twig' %}
 
 {% block title %}New Association{% endblock %}
 
@@ -19,10 +19,24 @@
 {% endblock %}
 
 {% block utils %}
-    {% include '../../../composants/buttons/button_utils.html.twig' with { 'id':'', 'array' : '','href' : path('mac_admin_association_index'), 'icon' : '<i class="fa-light fa-chevrons-left"></i>','text':' Retour' } %}
-    {% include '../../../composants/buttons/button_submit.html.twig' with {'id': 'cu-btnutils', 'array': 'ADDASSO-Créer une nouvelle fiche associative','icon' : '<i class="fa-light fa-check"></i>','text':'Valider' } %}
+        {% include 'composants/buttons/button_utils.html.twig' with {'id':'','array': '','href' : path('mac_admin_association_index'), 'icon' : '<i class="fa-light fa-chevrons-left"></i>','text':' Retour' } %}
+        {% include 'composants/buttons/button_submit.html.twig' with {
+            'id': 'cu-btnutils',
+            'array': 'EDITASSO-Créer une nouvelle fiche de membre',
+            'icon' : '<i class="fa-light fa-check"></i>',
+            'text':'Valider',
+            'button_width' : null
+        } %}
+        {% include 'composants/buttons/button_valid.html.twig' with {
+            'id'    : 'btnAddCampaign',
+            'array' : 'ADDCAMPAIGN-Ouverture d\'une nouvelle campagne d\'adhésion',
+            'href'  : null,
+            'icon'  : '<i class="fa-light fa-check"></i>',
+            'text'  : ' Nvlle Campagne d\'adhésion'
+        } %}
+
 {% endblock %}
 
 {% block main_content %}
-    {{ include('gestion/association/_form.html.twig') }}
+    {{ include('gestion/associations/association/_form.html.twig') }}
 {% endblock %}

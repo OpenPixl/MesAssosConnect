@@ -1,0 +1,55 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Cotisation index{% endblock %}
+
+{% block header_content %}
+{% endblock %}
+
+{% block sidebar_header %}
+{% endblock %}
+{% block sidebar_content %}
+{% endblock %}
+{% block sidebar_footer %}
+{% endblock %}
+
+{% block utils %}
+
+{% endblock %}
+
+{% block main_content %}
+    <h1>Cotisation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Cotisation</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cotisation in cotisations %}
+            <tr>
+                <td>{{ cotisation.id }}</td>
+                <td>{{ cotisation.name }}</td>
+                <td>{{ cotisation.cotisation }}</td>
+                <td>{{ cotisation.createdAt ? cotisation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ cotisation.updatedAt ? cotisation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_gestion_adhesions_cotisation_show', {'id': cotisation.id}) }}">show</a>
+                    <a href="{{ path('app_gestion_adhesions_cotisation_edit', {'id': cotisation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gestion_adhesions_cotisation_new') }}">Create new</a>
+{% endblock %}

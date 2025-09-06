@@ -2,7 +2,7 @@
 
 namespace App\Controller\Admin;
 
-use App\Repository\Admin\AssociationRepository;
+use App\Repository\Gestion\Associations\AssociationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class DashboardController extends AbstractController
 {
-    #[Route('/admin/dashboard', name: 'mac_admin_dashboard_index')]
+    #[Route('/', name: 'mac_admin_dashboard_index')]
     public function index(AssociationRepository $associationRepository): Response
     {
         $user = $this->getUser();

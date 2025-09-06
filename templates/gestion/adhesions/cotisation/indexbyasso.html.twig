@@ -1,0 +1,49 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}Cotisation index{% endblock %}
+
+{% block header_content %}
+    {{ include('composants/page_headings.html.twig', {
+        firstLabel : 'Associations',
+        firstLabel_route: 'mac_admin_association_index',
+        secondLabel : 'Fiche',
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+        label : 'Fiche de ' ~ association.name
+    }) }}
+{% endblock %}
+
+{% block sidebar_header %}
+    {{ include('gestion/associations/association/include/_sidebarheader.html.twig') }}
+{% endblock %}
+
+{% block sidebar_content%}
+    {{ include('gestion/associations/association/include/_sidebarcontent.html.twig') }}
+{% endblock %}
+
+{% block sidebar_footer %}
+    {{ include('gestion/associations/association/include/_sidebarfooter.html.twig') }}
+
+{% endblock %}
+
+{% block utils %}
+    {% include 'composants/buttons/button_utils.html.twig' with {
+        'id' : '',
+        'array':'',
+        'href' : path('mac_admin_association_show', {'id': association.id }),
+        'icon' : '<i class="fa-regular fa-chevrons-left" aria-hidden="true"></i>','text':'Retour vers '~association.name }
+    %}
+    {% include 'composants/buttons/button_utils.html.twig' with {
+        'id' : 'btnAddCotisation',
+        'array':'ADDCOTISATION-Ajouter une cotisation',
+        'href' : path('mac_gestion_cotisation_new', {'idAsso' : association.id}),
+        'icon' : '<i class="fa-light fa-money-check-dollar-pen"></i>','text':'Créer une nouvelle cotisation' }
+    %}
+{% endblock %}
+
+{% block main_content %}
+    <div class="py-1 px-1" id="liste">
+        {{ include('gestion/adhesions/cotisation/include/_listeCotisations.html.twig') }}
+    </div>
+{% endblock %}

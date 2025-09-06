@@ -4,42 +4,61 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="module" src="{{ asset('js/admin/member/new_edit.js') }}"></script>
-{% endblock %}
-
-{% block breadcrumb_content %}
-    {{ include('admin/include/_breadcrumb.html.twig', {
-        firstLabel : 'Membre',
-        firstLabel_route: 'mac_admin_member_index',
-        secondLabel : 'Editer une fiche',
-        secondLabel_route: null,
-        thirdLabel : null,
-        thirdLabel_route: null,
-    }) }}
 {% endblock %}
 
 {% block header_content %}
-    <div class="row">
-        <div class="col-12">
-            <h2>Modifier la fiche de : <span class="text-muted">{{ member.firstName }} {{ member.lastName }}</span></h2>
+    {{ include('composants/page_headings.html.twig', {
+        firstLabel : 'Membre',
+        firstLabel_route: 'mac_admin_member_index',
+        secondLabel : 'Fiche personelle',
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+        label : 'Mon espace'
+    }) }}
+{% endblock %}
+
+{% block sidebar_header %}
+    <div class="flex-none">
+        <div class="">
+            <img src="{{ asset('images/jpg/spdm.jpg') }}" alt="" class="h-18 w-full object-cover rounded-t lg:h-24" />
+        </div>
+        <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                <div class="flex">
+                    {% if member.avatarName is not null %}
+                    <img src="{{ asset('associations/'~ member.slug ~'/logo/'~ member.avatarName) }}" alt="{{ member.avatarName }}" class="size-18 rounded-full object-cover ring ring-sky-700 sm:size-24" />
+                    {% endif %}
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-18 rounded-full object-cover ring ring-sky-700 sm:size-24" />
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
 
-{% block main_content %}
-
-    <div class="row">
-        <div class="col">
-            <div class="float-start">
-                <a class="btn btn-sm btn-outline-dark" href="{{ path('mac_admin_member_index') }}"><i class="fa-regular fa-chevrons-left"></i> Retour</a>
-                <a class="btn btn-sm btn-outline-dark submitForm" href="{{ path('mac_admin_member_edit', {'id': member.id}) }}" data-target="formMember"><i class="fa-duotone fa-solid fa-pen-circle"></i> Modifier</a>
-            </div>
-            <div class="float-end">
-                {{ include('admin/member/_delete_form.html.twig') }}
-            </div>
-        </div>
+{% block sidebar_content %}
+    <div class="px-2 py-2">
+        {{ include('admin/member/_formedit.html.twig') }}
     </div>
+{% endblock %}
 
-    {{ include('admin/member/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+{% block sidebar_footer %}
+    <div class="px-2 py-3 flex flex-row justify-between">
+        <div class="w-full">
+            {% include 'composants/buttons/button_success_disabled.html.twig' with {
+                'id': 'btnSubmitMember',
+                'href' : '',
+                'button_width' :'w-full',
+                'icon' : '<i class="fa-duotone fa-solid fa-pen-circle"></i>',
+                'text':'Modifer' } %}
+        </div>
 
+    </div>
+{% endblock %}
+
+{% block utils %}
+    {% include 'composants/buttons/button_utils.html.twig' with { 'id':'', 'array' : '','href' : path('mac_admin_member_index'), 'icon' : '<i class="fa-light fa-chevrons-left"></i>','text':' Retour' } %}
+{% endblock %}
+
+{% block main_content %}
 {% endblock %}

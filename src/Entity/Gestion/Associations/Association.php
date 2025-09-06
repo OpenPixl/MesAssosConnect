@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Entity\Gestion\associations;
+namespace App\Entity\Gestion\Associations;
 
-use App\Entity\Admin\Member;
-use App\Repository\Gestion\associations\AssociationRepository;
+use App\Entity\Gestion\Adhesions\Adherent;
+use App\Entity\Gestion\Adhesions\Cotisation;
+use App\Repository\Gestion\Associations\AssociationRepository;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -73,11 +74,41 @@ class Association
     #[ORM\Column(type: 'string', nullable: true)]
     private $logoExt= null;
 
+    /**
+     * @var Collection<int, Adherent>
+     */
+    #[ORM\OneToMany(targetEntity: Adherent::class, mappedBy: 'Association')]
+    private Collection $adherents;
+
+    /**
+     * @var Collection<int, Cotisation>
+     */
+    #[ORM\OneToMany(targetEntity: Cotisation::class, mappedBy: 'association')]
+    private Collection $cotisations;
+
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $seasonStart = null;
+
+    #[ORM\Column(length: 5, nullable: true)]
+    private ?string $seasonEnd = null;
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updateAt = null;
+
+    /**
+     * @var Collection<int, CampaignAdhesion>
+     */
+    #[ORM\OneToMany(targetEntity: CampaignAdhesion::class, mappedBy: 'Association')]
+    private Collection $campaignAdhesions;
+
+    public function __construct()
+    {
+        $this->cotisations = new ArrayCollection();
+        $this->campaignAdhesions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -311,6 +342,90 @@ class Association
         return $this;
     }
 
+    /**
+     * @return Collection<int, Adherent>
+     */
+    public function getAdherents(): Collection
+    {
+        return $this->adherents;
+    }
+
+    public function addAdherent(Adherent $adherent): static
+    {
+        if (!$this->adherents->contains($adherent)) {
+            $this->adherents->add($adherent);
+            $adherent->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdherent(Adherent $adherent): static
+    {
+        if ($this->adherents->removeElement($adherent)) {
+            // set the owning side to null (unless already changed)
+            if ($adherent->getAssociation() === $this) {
+                $adherent->setAssociation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cotisation>
+     */
+    public function getCotisations(): Collection
+    {
+        return $this->cotisations;
+    }
+
+    public function addCotisation(Cotisation $cotisation): static
+    {
+        if (!$this->cotisations->contains($cotisation)) {
+            $this->cotisations->add($cotisation);
+            $cotisation->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCotisation(Cotisation $cotisation): static
+    {
+        if ($this->cotisations->removeElement($cotisation)) {
+            // set the owning side to null (unless already changed)
+            if ($cotisation->getAssociation() === $this) {
+                $cotisation->setAssociation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSeasonStart(): ?string
+    {
+        return $this->seasonStart;
+    }
+
+    public function setSeasonStart(?string $seasonStart): static
+    {
+        $this->seasonStart = $seasonStart;
+
+        return $this;
+    }
+
+    public function getSeasonEnd(): ?string
+    {
+        return $this->seasonEnd;
+    }
+
+    public function setSeasonEnd(?string $seasonEnd): static
+    {
+        $this->seasonEnd = $seasonEnd;
+
+        return $this;
+    }
+
     public function getCreateAt(): ?\DateTimeInterface
     {
         return $this->createAt;
@@ -341,5 +456,35 @@ class Association
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * @return Collection<int, CampaignAdhesion>
+     */
+    public function getCampaignAdhesions(): Collection
+    {
+        return $this->campaignAdhesions;
+    }
+
+    public function addCampaignAdhesion(CampaignAdhesion $campaignAdhesion): static
+    {
+        if (!$this->campaignAdhesions->contains($campaignAdhesion)) {
+            $this->campaignAdhesions->add($campaignAdhesion);
+            $campaignAdhesion->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCampaignAdhesion(CampaignAdhesion $campaignAdhesion): static
+    {
+        if ($this->campaignAdhesions->removeElement($campaignAdhesion)) {
+            // set the owning side to null (unless already changed)
+            if ($campaignAdhesion->getAssociation() === $this) {
+                $campaignAdhesion->setAssociation(null);
+            }
+        }
+
+        return $this;
     }
 }

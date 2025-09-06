@@ -3,7 +3,7 @@
         <div class="flex flex-col gap-1">
             <p class="uppercase border-b border-gray-300 mb-1">Informations générales</p>
             <div class="mb-1">
-                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                {% include 'composants/forms/input_text_horizontal.html.twig' with {
                     'legend_width' : 'w-2/6',
                     'col_width' : 'w-4/6',
                     'label' : field_label(form.name),
@@ -11,11 +11,10 @@
                     'placeholder': 'Nom de l\'association',
                     'input_width' : 'w-full',
                     'oninput': ''
-                }%}
+                } %}
             </div>
             <div class="mb-1">
-
-                {% include '../../../composants/forms/blocs/bloc_city_horizontal.html.twig' with {
+                {% include 'composants/forms/blocs/bloc_city_horizontal.html.twig' with {
                     'legend_width' : 'w-2/6',
                     'col_width' : 'w-4/6',
                     'label': 'Adresse',
@@ -30,7 +29,7 @@
                 } %}
             </div>
             <div class="mb-1">
-                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                {% include 'composants/forms/input_text_horizontal.html.twig' with {
                     'legend_width' : 'w-2/6',
                     'col_width' : 'w-4/6',
                     'label' : field_label(form.contactPhone),
@@ -41,7 +40,7 @@
                 } %}
             </div>
             <div class="mb-1">
-                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                {% include 'composants/forms/input_text_horizontal.html.twig' with {
                     'legend_width' : 'w-2/6',
                     'col_width' : 'w-4/6',
                     'label' : 'Email',
@@ -52,7 +51,7 @@
                 } %}
             </div>
             <div class="mb-1">
-                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                {% include 'composants/forms/input_text_horizontal.html.twig' with {
                     'legend_width' : 'w-2/6',
                     'col_width' : 'w-4/6',
                     'label' : 'Quel est l\'url de votre site web',
@@ -63,14 +62,39 @@
                 } %}
             </div>
             <p class="uppercase border-b border-gray-300 my-1">Informations Administratives</p>
+            <div class="mb-1 flex flex-row gap-1">
+                <div class="flex-1">
+                    {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                        'legend_width' : 'w-3/6',
+                        'col_width' : 'w-3/6',
+                        'label' : 'Ouverture de saison',
+                        form : form.seasonStart,
+                        'placeholder': 'dd/mm',
+                        'input_width' : 'w-20',
+                        'oninput': 'formatMonthDay(this)'
+                    } %}
+                </div>
+                <div class="flex-1">
+                    {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                        'legend_width' : 'w-3/6',
+                        'col_width' : 'w-3/6',
+                        'label' : 'Fin de saison',
+                        form : form.seasonEnd,
+                        'placeholder': 'dd/mm',
+                        'input_width' : 'w-20',
+                        'oninput': 'formatMonthDay(this)'
+                    } %}
+                </div>
+
+            </div>
             <div class="mb-1">
-                {% include '../../../composants/forms/input_switch.html.twig' with {
+                {% include 'composants/forms/input_switch.html.twig' with {
                     'label' : 'L\'association est elle inscrite au registre nationale des associations (RNA)',
                     'id' : form.isRna.vars.id,
-                    form_field: form.isRna,
+                    form: form.isRna,
                     'class' : 'absolute left-0 top-0 w-full h-full peer appearance-none'
                 } %}
-                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                {% include 'composants/forms/input_text_horizontal.html.twig' with {
                     'legend_width' : 'w-2/6',
                     'col_width' : 'w-4/6',
                     'label' : 'Si oui, Quel est son numéro ?',
@@ -85,7 +109,7 @@
             <p class="uppercase border-b border-gray-300">Présentation de l'association</p>
             <div class="mb-1">
                 <p>texte de presentation du textarea</p>
-                {% include '../../../composants/forms/input_textarea.html.twig' with {
+                {% include 'composants/forms/input_textarea.html.twig' with {
                 'label' : form.object.vars.label,
                 'for' :form.object.vars.id,
                 'id' : form.object.vars.id,
@@ -99,7 +123,7 @@
                 %}
             </div>
             <div class="mb-1">
-                {% include '../../../composants/forms/input_file.html.twig' with {
+                {% include 'composants/forms/input_file.html.twig' with {
                     'label' : form.logoFile.vars.label,
                     'id' : form.logoFile.vars.id,
                     'value': form.logoFile.vars.value,

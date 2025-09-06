@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Gestion\associations;
+namespace App\Form\Gestion\Associations;
 
 use App\Entity\Gestion\Associations\Association;
 use Symfony\Component\Form\AbstractType;
@@ -77,6 +77,12 @@ class AssociationType extends AbstractType
                         'mimeTypesMessage' => 'Attention, veuillez charger un fichier au format jpg ou png',
                     ])
                 ],
+            ])
+            ->add('seasonStart', TextType::class,[
+                'label' => 'Ouverture de saison'
+            ])
+            ->add('seasonEnd', TextType::class,[
+                'label' => 'Fin de saison'
             ])
         ;
     }

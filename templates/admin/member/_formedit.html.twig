@@ -1,0 +1,127 @@
+{{ form_start(form) }}
+<div class="text-start">
+
+    <div class="mt-3 mb-3">
+        {% include 'composants/forms/input_choicepanel.html.twig' with {
+            'legend_width' : 'hidden',
+            'col_width' : 'w-full',
+            form : form.typeMember
+        } %}
+    </div>
+
+    <div class="mt-3 mb-3">
+        <div class="mb-1">
+            {% include 'composants/forms/input_choicepanel.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                form : form.civility,
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : form.firstName.vars.label,
+                form : form.firstName,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-full',
+                'oninput': ''
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : form.lastName.vars.label,
+                form : form.lastName,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-full',
+                'oninput': ''
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : 'Date de naissance',
+                form : form.birthday,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-full',
+                'oninput': 'formatDate(this)'
+            } %}
+        </div>
+    </div>
+    <div class="mt-3 mb-3">
+        <p class="font-semibold">Adresse</p>
+        <div class="mb-1">
+            {% include 'composants/forms/blocs/bloc_city_vertical.html.twig' with {
+                'legend_width' : 'w-full',
+                'col_width' : 'w-full',
+                'label': '',
+                address : form.address,
+                bisAddress : form.bisAddress,
+                zipcode : form.zipcode,
+                city : form.city,
+                'address_width' :'w-full',
+                'bisAddress_width' :'w-full',
+                'zipcode_width' : 'w-1/5',
+                'city_width' :'w-4/5',
+            } %}
+        </div>
+    </div>
+
+    <div class="mt-2 mb-2">
+        <p class="font-semibold">Contacts</p>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : 'Mobile',
+                form : form.mobilePhone,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-full',
+                'oninput': 'formatTel(this)'
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : form.homePhone.vars.label,
+                form : form.homePhone,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-full',
+                'oninput': 'formatTel(this)'
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-5/12',
+                'col_width' : 'w-7/12',
+                'label' : form.workPhone.vars.label,
+                form : form.workPhone,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-full',
+                'oninput': 'formatTel(this)'
+            } %}
+        </div>
+
+        <div class="mt-2">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-3/12',
+                'col_width' : 'w-9/12',
+                'label' : 'E-mail',
+                form : form.email,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-full',
+                'oninput': 'formatTel(this)'
+            } %}
+        </div>
+    </div>
+    {{ form_widget(form.isVerified, {'attr': {'class': 'hidden' }}) }}
+    <div id="pers_morale">
+
+    </div>
+</div>
+
+{{ form_end(form) }}

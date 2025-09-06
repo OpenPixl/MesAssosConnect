@@ -2,22 +2,19 @@
 
 namespace App\Controller\Easy;
 
-use App\Entity\Gestion\Adhesion;
+use App\Entity\Gestion\adhesions\Adherent;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AdhesionCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
     {
-        return Adhesion::class;
+        return Adherent::class;
     }
 
     public function configureFields(string $pageName): iterable
