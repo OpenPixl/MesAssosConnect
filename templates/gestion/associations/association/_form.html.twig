@@ -1,0 +1,117 @@
+{{ form_start(form) }}
+    <div class="grid grid-cols-2 gap-2">
+        <div class="flex flex-col gap-1">
+            <p class="uppercase border-b border-gray-300 mb-1">Informations générales</p>
+            <div class="mb-1">
+                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                    'legend_width' : 'w-2/6',
+                    'col_width' : 'w-4/6',
+                    'label' : field_label(form.name),
+                    form : form.name,
+                    'placeholder': 'Nom de l\'association',
+                    'input_width' : 'w-full',
+                    'oninput': ''
+                }%}
+            </div>
+            <div class="mb-1">
+
+                {% include '../../../composants/forms/blocs/bloc_city_horizontal.html.twig' with {
+                    'legend_width' : 'w-2/6',
+                    'col_width' : 'w-4/6',
+                    'label': 'Adresse',
+                    address : form.address,
+                    bisAddress : form.bisAddress,
+                    zipcode : form.zipcode,
+                    city : form.city,
+                    'address_width' :'w-80',
+                    'bisAddress_width' :'w-80',
+                    'zipcode_width' : 'w-20',
+                    'city_width' :'w-60',
+                } %}
+            </div>
+            <div class="mb-1">
+                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                    'legend_width' : 'w-2/6',
+                    'col_width' : 'w-4/6',
+                    'label' : field_label(form.contactPhone),
+                    form : form.contactPhone,
+                    'placeholder': 'Téléphone',
+                    'input_width' : 'w-60',
+                    'oninput': 'formatTel(this)'
+                } %}
+            </div>
+            <div class="mb-1">
+                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                    'legend_width' : 'w-2/6',
+                    'col_width' : 'w-4/6',
+                    'label' : 'Email',
+                    form : form.contactEmail,
+                    'placeholder': 'Email',
+                    'input_width' : 'w-full',
+                    'oninput': ''
+                } %}
+            </div>
+            <div class="mb-1">
+                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                    'legend_width' : 'w-2/6',
+                    'col_width' : 'w-4/6',
+                    'label' : 'Quel est l\'url de votre site web',
+                    form : form.site,
+                    'placeholder': 'www.votresiteweb.com',
+                    'input_width' : 'w-full',
+                    'oninput': ''
+                } %}
+            </div>
+            <p class="uppercase border-b border-gray-300 my-1">Informations Administratives</p>
+            <div class="mb-1">
+                {% include '../../../composants/forms/input_switch.html.twig' with {
+                    'label' : 'L\'association est elle inscrite au registre nationale des associations (RNA)',
+                    'id' : form.isRna.vars.id,
+                    form_field: form.isRna,
+                    'class' : 'absolute left-0 top-0 w-full h-full peer appearance-none'
+                } %}
+                {% include '../../../composants/forms/input_text_horizontal.html.twig' with {
+                    'legend_width' : 'w-2/6',
+                    'col_width' : 'w-4/6',
+                    'label' : 'Si oui, Quel est son numéro ?',
+                    form : form.numRna,
+                    'placeholder': '',
+                    'input_width' : '',
+                    'oninput': ''
+                } %}
+            </div>
+        </div>
+        <div class="flex flex-col gap-1">
+            <p class="uppercase border-b border-gray-300">Présentation de l'association</p>
+            <div class="mb-1">
+                <p>texte de presentation du textarea</p>
+                {% include '../../../composants/forms/input_textarea.html.twig' with {
+                'label' : form.object.vars.label,
+                'for' :form.object.vars.id,
+                'id' : form.object.vars.id,
+                'value': field_value(form.object),
+                'name' : field_name(form.object),
+                'required' : false,
+                'rows' : 10,
+                'placeholder': '',
+                'input_width' : 'w-160',
+                }
+                %}
+            </div>
+            <div class="mb-1">
+                {% include '../../../composants/forms/input_file.html.twig' with {
+                    'label' : form.logoFile.vars.label,
+                    'id' : form.logoFile.vars.id,
+                    'value': form.logoFile.vars.value,
+                    'name' : field_name(form.logoFile),
+                    'required' : false,
+                    'input_width' : 'w-160',
+                    form_field: form.logoFile,
+                }
+                %}
+            </div>
+
+        </div>
+    <div>
+        {{ form_rest(form) }}
+{{ form_end(form) }}

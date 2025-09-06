@@ -1,0 +1,28 @@
+{% extends '../../../admin.html.twig' %}
+
+{% block title %}New Association{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header_content %}
+    {{ include('composants/page_headings.html.twig', {
+        firstLabel : 'Associations',
+        firstLabel_route: 'mac_admin_association_index',
+        secondLabel : 'Ajouter',
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+        label : 'Création d\'une nouvelle association'
+    }) }}
+{% endblock %}
+
+{% block utils %}
+    {% include '../../../composants/buttons/button_utils.html.twig' with { 'id':'', 'array' : '','href' : path('mac_admin_association_index'), 'icon' : '<i class="fa-light fa-chevrons-left"></i>','text':' Retour' } %}
+    {% include '../../../composants/buttons/button_submit.html.twig' with {'id': 'cu-btnutils', 'array': 'ADDASSO-Créer une nouvelle fiche associative','icon' : '<i class="fa-light fa-check"></i>','text':'Valider' } %}
+{% endblock %}
+
+{% block main_content %}
+    {{ include('gestion/association/_form.html.twig') }}
+{% endblock %}

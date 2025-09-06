@@ -1,0 +1,56 @@
+{% extends '../../../admin.html.twig' %}
+
+{% block title %}Association index{% endblock %}
+
+{% block header_content %}
+    {{ include('composants/page_headings.html.twig', {
+        firstLabel : 'Associations',
+        firstLabel_route: 'mac_admin_association_index',
+        secondLabel : null,
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+        label : 'Liste de mes associations'
+    }) }}
+{% endblock %}
+
+
+{% block sidebar_content %}
+<div class="mt-1">
+    {% for association in associations %}
+    <div class="flex min-w-full py-2 align-middle sm:px-6 lg:px-2 bg-white hover:bg-gray-100">
+
+        <div class="flex-1">
+            <p class="text-sm text-start">
+                <a class="text-sky-600 " href="{{ path('mac_admin_association_show', {'id': association.id}) }}">{{ association.name }}</a><br>
+                <small class="text-slate-700">{{ association.city }}</small>
+            </p>
+        </div>
+        <div class="flex-1 items-center">
+            <p class="text-sm text-end">
+                <span class="text-gray-400"><i class="fa-solid fa-users"></i></span> {{ association.adhesions|length }} Membres
+            </p>
+        </div>
+
+
+    </div>
+    {% else %}
+    <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-4 bg-white">
+        <p>Pas d'asso</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block sidebar_footer %}
+    <div class="px-2 py-3 flex flex-row justify-between">
+        <div>
+            {% include '../../../composants/buttons/button_success.html.twig' with {'id':'', 'href' : path('mac_admin_dashboard_index'), 'icon' : '<i class="fa-regular fa-chevrons-left"></i>','text':'Retour' } %}
+            {% include '../../../composants/buttons/button_success.html.twig' with {'id':'', 'href' : path('mac_admin_association_new'), 'icon' : '<i class="fa-duotone fa-solid fa-pen-circle"></i>','text':'Ajouter une Asso' } %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block main_content %}
+    <p>Affiches les activités et participations</p>
+{% endblock %}

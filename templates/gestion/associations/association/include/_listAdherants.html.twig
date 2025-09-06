@@ -1,0 +1,46 @@
+{% set now = "now"|date("Y") %}
+<p class="text-xl text-slate-800 mb-2">Liste des membres adhérant à l'association</p>
+<table class="min-w-full divide-y divide-gray-300">
+    <thead>
+    <tr>
+        <th class="text-left text-sm font-semibold text-gray-900 ">Nom et Prénom</th>
+        <th class="text-left text-sm font-semibold text-gray-900 ">Adresse</th>
+        <th class="text-left text-sm font-semibold text-gray-900 w-52"></th>
+        <th class="text-left text-sm font-semibold text-gray-900 "></th>
+        <th class="text-left text-sm font-semibold text-gray-900 "></th>
+        <th class="text-left text-sm font-semibold text-gray-900 "></th>
+        <th class="text-left text-sm font-semibold text-gray-900 ">Actions</th>
+    </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200">
+        {% for adhesion in association.adhesions %}
+        <tr class="bg-white hover:bg-gray-100/70">
+            <td class="py-1.5 pr-1 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0 flex flex-row items-center">
+                <div class="content-center mr-1">
+                    <img class="size-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
+                </div>
+                <div>
+                    <a href="{{ path('mac_admin_member_edit', {'id': adhesion.member.id}) }}" class="">{{ adhesion.member.civility }} {{ adhesion.member.lastName }} {{ adhesion.member.firstName }}</a>
+                    <br>
+                    <p class="text-gray-500 font-light">
+                        <a href="mailto:{{ adhesion.member.email }}" class="relative truncate hover:underline">{{ adhesion.member.email }}</a>
+                    </p>
+                </div>
+            </td>
+            <td class="py-1.5 pr-3 pl-4 font-light whitespace-nowrap text-gray-900 sm:pl-0">
+                <p class="text-sm">
+                    {{ adhesion.member.address }}<br>
+                    {{ adhesion.member.zipcode }} {{ adhesion.member.city }}
+                </p>
+            </td>
+            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0">
+                <a href="#" class="text-xs text-center text-light text-sky-300 border border-sky-300 px-1.5 py-1 rounded openModal" data-array="ADDCOTISATION-Créer/Renouveller une adhesion">Créer la première adhésion</a>
+            </td>
+            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
+            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
+            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
+            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
