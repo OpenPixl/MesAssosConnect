@@ -8,7 +8,6 @@ export function initIndexCotisationPage() {
     console.log('Bonjour, vous êtes sur la page dédiée à la gestion des cotisations.');
 
     const btnAddCotisation = document.getElementById("btnAddCotisation");
-    console.log(btnAddCotisation);
 
     let dialog = document.getElementById("dialog");
 
@@ -19,7 +18,7 @@ export function initIndexCotisationPage() {
         let url = e.currentTarget.href;
         let [crud,title,option] = e.currentTarget.dataset.array.split('-');
         dialog.querySelector('#modal_header_title').textContent = title;
-        if(crud === 'ADDCOTISATION'){
+        if(['ADDCOTISATION', 'EDITCOTISATION'].includes(crud) ){
             axios
                 .get(url)
                 .then(function({data}) {

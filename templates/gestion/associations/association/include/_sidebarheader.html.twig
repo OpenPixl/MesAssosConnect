@@ -13,7 +13,7 @@
                 {% else %}
                 <img
                     src="{{ asset('associations/'~association.slug~'/logo/'~association.logoName)|imagine_filter('association_card') }}"
-                    alt="logo de l'association {{ association.name }}" class="size-18 rounded-full shadow-xl object-cover ring ring-sky-700 sm:size-24"
+                    alt="logo de l'association {{ association.name }}" class="size-18 rounded-full shadow-xl object-cover ring-2 ring-sky-700 sm:size-24"
                 />
                 {% endif %}
             </div>

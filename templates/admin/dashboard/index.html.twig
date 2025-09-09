@@ -32,8 +32,10 @@
         <div class="grid grid-cols-4 gap-2">
         {% for association in associations %}
             <div class="overflow-hidden border border-solid border-gray-300 rounded bg-gray-50 dark:bg-gray-800/50 shadow-sm">
-                <img src="{{ asset('associations/'~association.slug~'/logo/'~association.logoName) }}" class="img-fluid rounded-start" alt="...">
-                <div class="px-4 py-5 sm:p-2">
+                <div class="h-2/4">
+                    <img src="{{ asset('associations/'~association.slug~'/logo/'~association.logoName) }}" class="h-full object-cover rounded-start" alt="...">
+                </div>
+                <div class="h-2/4 px-4 py-5 sm:p-2">
                     <div>
                         <h5 class="font-semibold">{{ association.name }}</h5>
                         <p class="text-sm">Membres : {{ association.adherents|length }}</p>

@@ -116,22 +116,54 @@ final class CotisationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'mac_gestion_cotisation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cotisation $cotisation, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/edit/', name: 'mac_gestion_cotisation_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Cotisation $cotisation, CotisationRepository $cotisationRepository, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(CotisationType::class, $cotisation);
+        $association = $cotisation->getAssociation();
+        $form = $this->createForm(CotisationType::class, $cotisation, [
+            'action' => $this->generateUrl('mac_gestion_cotisation_edit', ['id' => $cotisation->getId()]),
+            'attr' => [
+                'id' => 'formCotisation'
+            ]
+        ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        if ($form->isSubmitted()) {
+            if($form->isValid()){
+                $entityManager->flush();
+                $cotisations = $cotisationRepository->findBy(['association' => $association]);
 
-            return $this->redirectToRoute('mac_gestion_cotisation_index', [], Response::HTTP_SEE_OTHER);
+                // return
+                return $this->json([
+                    "code" => 200,
+                    'liste' => $this->renderView('gestion/adhesions/cotisation/include/_listeCotisations.html.twig', [
+                        'cotisations' => $cotisations,
+                        'association' => $association,
+                    ]),
+                    'message' => 'L\'ajout de l\'utlisateur à la plateforme et à la BDD a été réussi'
+                ], 200);
+            }
+            // Bloc dans le cas d'une erreur de formulaire à la soummission'
+            $view = $this->render('admin/member/_form.html.twig', [
+                'cotisation' => $cotisation,
+                'form' => $form
+            ]);
+            return $this->json([
+                "code" => 422,
+                'message' => 'Une erreur s\'est glissé dans le formulaire',
+                'formView' => $view->getContent()
+            ], 200);
         }
 
-        return $this->render('gestion/adhesions/cotisation/edit.html.twig', [
+        // Bloc pour afficher le formulaire lors du premier appel de la méthode
+        $view = $this->render('gestion/adhesions/cotisation/_form.html.twig', [
             'cotisation' => $cotisation,
-            'form' => $form,
+            'form' => $form
         ]);
+        return $this->json([
+            "code" => 200,
+            'formView' => $view->getContent()
+        ], 200);
     }
 
     #[Route('/{id}', name: 'mac_gestion_cotisation_delete', methods: ['POST'])]

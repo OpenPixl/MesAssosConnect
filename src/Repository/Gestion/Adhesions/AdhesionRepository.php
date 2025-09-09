@@ -16,6 +16,22 @@ class AdhesionRepository extends ServiceEntityRepository
         parent::__construct($registry, Adhesion::class);
     }
 
+    /**
+    * @return Adhesion[] Returns an array of Adhesion objects
+    */
+    public function listbyasso($idAsso): array
+    {
+        return $this->createQueryBuilder('a')
+            ->leftJoin('a.campaign', 'c')
+            ->leftJoin('c.Association', 'asso')
+            ->andWhere('asso.id = :idAsso')
+            ->setParameter('idAsso', $idAsso)
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 //    /**
 //     * @return Adhesion[] Returns an array of Adhesion objects
 //     */

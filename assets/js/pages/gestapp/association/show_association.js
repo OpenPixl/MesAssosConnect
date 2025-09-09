@@ -22,12 +22,18 @@ export function initShowAssociationPage() {
         let url = e.currentTarget.href;
         let [crud,title,option] = e.currentTarget.dataset.array.split('-');
         dialog.querySelector('#modal_header_title').textContent = title;
-        if(crud === 'ADDMEMBER'){
+        if(['ADDMEMBER', 'EDITMEMBER', 'SHOWMEMBER'].includes(crud)){
+            console.log(crud, title);
             axios
                 .get(url)
                 .then(function({data}) {
-                    dialog.querySelector('#modal_body_text').innerHTML = data.formView;
-                    dialog.querySelector('#modal_footer .validModal').href = url;
+                    if(crud === 'SHOWMEMBER'){
+                        dialog.querySelector('#modal_body_text').innerHTML = data.view;
+                        dialog.querySelector('#modal_footer .validModal').classList.add('hidden');
+                    }else{
+                        dialog.querySelector('#modal_body_text').innerHTML = data.formView;
+                        dialog.querySelector('#modal_footer .validModal').href = url;
+                    }
 
                     let commune = document.getElementById('member_city');
                     let cp = document.getElementById('member_zipcode');

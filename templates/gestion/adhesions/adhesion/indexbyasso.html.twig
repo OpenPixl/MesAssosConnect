@@ -1,0 +1,88 @@
+{% extends 'admin.html.twig' %}
+
+{% block title %}KOALLIA{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block header_content %}
+    {{ include('composants/page_headings.html.twig', {
+        firstLabel : 'Associations',
+        firstLabel_route: 'mac_admin_association_index',
+        secondLabel : 'Modifier',
+        secondLabel_route: null,
+        thirdLabel : null,
+        thirdLabel_route: null,
+        label: 'Modifier les infos de l\'association'
+    }) }}
+{% endblock %}
+
+{% block sidebar_header %}
+    {{ include('gestion/associations/association/include/_sidebarheader.html.twig') }}
+{% endblock %}
+
+{% block sidebar_content%}
+    {{ include('gestion/associations/association/include/_sidebarcontent.html.twig') }}
+{% endblock %}
+
+{% block sidebar_footer %}
+    {{ include('gestion/associations/association/include/_sidebarfooter.html.twig') }}
+{% endblock %}
+
+{% block utils %}
+    {% include 'composants/buttons/button_utils.html.twig' with {
+        'id' : 'btnAddMember',
+        'array':'ADDMEMBER-Créer une nouvelle fiche de membre',
+        'href' : path('mac_admin_member_newjson', {'idAsso': association.id }),
+        'icon' : '<i class="fa-light fa-user-plus"></i>','text':'ajouter' }
+    %}
+{% endblock %}
+
+{% block main_content %}
+    <h2 class="text-xl text-slate-800 mb-2">Adhésions en cours</h2>
+
+    <table class="min-w-full divide-y divide-gray-300">
+        <thead>
+            <tr>
+                <th class="text-left text-sm font-semibold text-gray-900 "></th>
+                <th class="text-left text-sm font-semibold text-gray-900 ">Type</th>
+                <th class="text-left text-sm font-semibold text-gray-900 ">Adherent.s</th>
+                <th class="text-left text-sm font-semibold text-gray-900 ">Tarif</th>
+                <th class="text-left text-sm font-semibold text-gray-900 ">Règlement</th>
+                <th class="text-left text-sm font-semibold text-gray-900 ">Durée de l'adhésion</th>
+                <th class="text-left text-sm font-semibold text-gray-900 ">actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for adhesion in adhesions %}
+            <tr class="bg-white hover:bg-gray-100/70">
+                <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0"></td>
+                <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0"><p class="">{{ adhesion.cotisation.name }}</p></td>
+                <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">
+                    {% for adherent in adhesion.adherent %}
+                        {{ adherent.member.firstname }} {{ adherent.member.lastname }}
+                    {% endfor %}
+                </td>
+                <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">{{ adhesion.priceCotisation }}€</td>
+                <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">
+                    {% if adhesion.payBy is null or adhesion.payBy is null %}
+                        Pas de réglement affecté à cette cotisation.
+                    {% else %}
+                        Cotisation réglée le {{ adhesion.payBy|date('d/m/Y') }} par {{ adhesion.payBy }}
+                    {% endif %}
+                </td>
+                <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900">Du {{ adhesion.startAt|date('d/m/Y') }} au {{ adhesion.finishAt|date('d/m/Y') }}</td>
+                <td class="py-1.5 pr-1 pl-4 text-sm font-light whitespace-nowrap text-gray-900">
+                    <a href="{{ path('app_gestion_adhesions_adhesion_show', {'id': adhesion.id}) }}">show</a>
+                    <a href="{{ path('app_gestion_adhesions_adhesion_edit', {'id': adhesion.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">Pas d'adhesion sur la campagne en cours</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

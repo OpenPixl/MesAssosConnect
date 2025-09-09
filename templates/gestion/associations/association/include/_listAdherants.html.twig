@@ -24,16 +24,13 @@
         {% endif %}
     </div>
 </div>
-<table class="min-w-full divide-y divide-gray-300">
+<table class="table-fixed min-w-full divide-y divide-gray-300">
     <thead>
     <tr>
-        <th class="text-left text-sm font-semibold text-gray-900 ">Nom et Prénom</th>
-        <th class="text-left text-sm font-semibold text-gray-900 ">Adresse</th>
-        <th class="text-left text-sm font-semibold text-gray-900 w-52"></th>
-        <th class="text-left text-sm font-semibold text-gray-900 "></th>
-        <th class="text-left text-sm font-semibold text-gray-900 "></th>
-        <th class="text-left text-sm font-semibold text-gray-900 "></th>
-        <th class="text-left text-sm font-semibold text-gray-900 ">Actions</th>
+        <th class="text-left text-sm font-semibold text-gray-900 w-2/12">Nom et Prénom</th>
+        <th class="text-left text-sm font-semibold text-gray-900 w-3/12">Adresse</th>
+        <th class="text-left text-sm font-semibold text-gray-900 w-4/12"></th>
+        <th class="text-left text-sm font-semibold text-gray-900 w-2/12">Actions</th>
     </tr>
     </thead>
     <tbody class="divide-y divide-gray-200">
@@ -44,9 +41,9 @@
                     <img class="size-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt="">
                 </div>
                 <div>
-                    <a href="{{ path('mac_admin_member_edit', {'id': adherent.member.id}) }}" class="">{{ adherent.member.civility }} {{ adherent.member.lastName }} {{ adherent.member.firstName }}</a>
+                    <a href="{{ path('mac_gestion_associations_adherent_show', {'id': adherent.member.id}) }}" class="openModal" data-array="SHOWMEMBER-Voir la fiche du membre {{ adherent.member.civility }} {{ adherent.member.lastName }} {{ adherent.member.firstName }}">{{ adherent.member.civility }} {{ adherent.member.lastName }} {{ adherent.member.firstName }}</a>
                     <br>
-                    <p class="text-gray-500 font-light">{{ adherent.member.email }}</p>
+                    <p class="text-gray-500 font-light">Type d'adhérent</p>
                 </div>
             </td>
             <td class="py-1.5 pr-3 pl-4 font-light whitespace-nowrap text-gray-900 sm:pl-0">
@@ -55,12 +52,25 @@
                     {{ adherent.member.zipcode }} {{ adherent.member.city }}
                 </p>
             </td>
-            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0">
+            <td class="py-1.5 pr-3 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">
                 {% set lastAdhesions = adherent.adhesions|last %}
 
                 {%  if lastAdhesions %}
                     {% if lastAdhesions.campaign.id == activeCampaign.id %}
-                        <p>L'adhésion est en cours de validité</p>
+                        <div class="flex flex-row items-center justify-between">
+                            <div>
+                                <p>L'adhésion est en cours de validité</p>
+                                <p>Date de fin : {{ lastAdhesions.campaign.finishAt|date("d/m/Y") }}</p>
+                            </div>
+                            <div>
+                                {% if lastAdhesions.payby is null or lastAdhesions.payby is empty %}
+                                    <p class="text-orange-700"><i class="fa-light fa-diamond-exclamation fa-xl"></i> Règlement en attente !!</p>
+                                {% else %}
+                                    <p class="text-emerald-700"><i class="fa-light fa-shield-check fa-xl"></i> Cotisation à jour</p>
+                                {% endif %}
+                            </div>
+                        </div>
+
                     {% else %}
                         <a href="#" class="text-xs text-center text-light text-sky-300 border border-sky-300 px-1.5 py-1 rounded openModal" data-array="ADDCOTISATION-Créer/Renouveller une adhesion">Renouveler l'adhésion</a>
                     {% endif %}
@@ -72,10 +82,9 @@
                     {% endif %}
                 {% endif %}
             </td>
-            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
-            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
-            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
-            <td class="py-1.5 pr-3 pl-4 text-sm font-medium whitespace-nowrap text-gray-900 sm:pl-0"></td>
+            <td class="py-1.5 pr-3 pl-4 text-sm font-light whitespace-nowrap text-gray-900 sm:pl-0">
+                A venir
+            </td>
         </tr>
     {% endfor %}
     </tbody>

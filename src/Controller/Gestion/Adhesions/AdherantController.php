@@ -89,12 +89,15 @@ final class AdherantController extends AbstractController
         ], 200);
     }
 
-    #[Route('/{id}', name: 'mac_gestion_associations_adhesion_show', methods: ['GET'])]
-    public function show(Adherent $adhesion): Response
+    #[Route('/{id}', name: 'mac_gestion_associations_adherent_show', methods: ['GET'])]
+    public function show(Adherent $adherent): Response
     {
-        return $this->render('gestion/associations/adhesion/show.html.twig', [
-            'adhesion' => $adhesion,
-        ]);
+
+        return $this->json([
+            'view' => $this->renderView('gestion/adhesions/adherent/show.html.twig', [
+                'adherent' => $adherent,
+            ]),
+        ], 200);
     }
 
     #[Route('/{id}/edit', name: 'mac_gestion_associations_adhesion_edit', methods: ['GET', 'POST'])]

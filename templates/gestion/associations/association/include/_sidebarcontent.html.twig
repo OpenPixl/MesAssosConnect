@@ -10,6 +10,13 @@
     {% include 'composants/buttons/button_sidebar.html.twig' with {
         'id' : '',
         'array':'',
+        'href' : path ('mac_gestion_adhesions_adhesion_indexbyasso', {'idAsso': association.id }),
+        'icon' : '<i class="fa-light fa-money-check-dollar-pen fa-xl" aria-hidden="true"></i>','text':'Gestion des adhésions' }
+    %}
+
+    {% include 'composants/buttons/button_sidebar.html.twig' with {
+        'id' : '',
+        'array':'',
         'href' : path ('mac_gestion_cotisation_indexbyAsso', {'idAsso': association.id}),
         'icon' : '<i class="fa-light fa-money-check-dollar-pen fa-xl" aria-hidden="true"></i>','text':'Gestion des activités' }
     %}

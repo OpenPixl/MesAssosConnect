@@ -6,6 +6,7 @@ use App\Entity\Gestion\Adhesions\Adhesion;
 use App\Form\Gestion\Adhesions\AdhesionType;
 use App\Repository\Gestion\Adhesions\AdherentRepository;
 use App\Repository\Gestion\Adhesions\AdhesionRepository;
+use App\Repository\Gestion\Associations\AssociationRepository;
 use App\Repository\Gestion\Associations\CampaignAdhesionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,6 +24,21 @@ final class AdhesionController extends AbstractController
             'adhesions' => $adhesionRepository->findAll(),
         ]);
     }
+
+    #[Route('byasso/{idAsso}', name: 'mac_gestion_adhesions_adhesion_indexbyasso', methods: ['GET'])]
+    public function indexbyasso(AdhesionRepository $adhesionRepository, $idAsso, AssociationRepository $associationRepository): Response
+    {
+        $association = $associationRepository->find($idAsso);
+
+        $adhesions = $adhesionRepository->listbyasso($association);
+        //dd($adhesions);
+
+        return $this->render('gestion/adhesions/adhesion/indexbyasso.html.twig', [
+            'adhesions' => $adhesions,
+            'association' => $association,
+        ]);
+    }
+
 
     #[Route('/new', name: 'app_gestion_adhesions_adhesion_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
