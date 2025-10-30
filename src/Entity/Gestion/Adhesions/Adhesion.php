@@ -53,6 +53,9 @@ class Adhesion
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $cotisationName = null;
+
     public function __construct()
     {
         $this->adherent = new ArrayCollection();
@@ -194,6 +197,18 @@ class Adhesion
     public function setUpdatedAt(): static
     {
         $this->updatedAt = new \DateTime();
+
+        return $this;
+    }
+
+    public function getCotisationName(): ?string
+    {
+        return $this->cotisationName;
+    }
+
+    public function setCotisationName(?string $cotisationName): static
+    {
+        $this->cotisationName = $cotisationName;
 
         return $this;
     }

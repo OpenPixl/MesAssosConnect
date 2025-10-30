@@ -7,18 +7,29 @@
             'label' : form.cotisation.vars.label,
             form : form.cotisation,
             'placeholder': null,
-            'input_width' : 'w-64',
+            'input_width' : 'w-72',
             'oninput': ''
         } %}
     </div>
     <div class="mb-1">
-        {% include 'composants/forms/input_text_horizontal.html.twig' with {
+        {% include 'composants/forms/inputs/input_hidden_horizontal.html.twig' with {
             'legend_width' : 'w-3/12',
             'col_width' : 'w-9/12',
             'label' : form.priceCotisation.vars.label,
             form : form.priceCotisation,
             'placeholder': null,
             'input_width' : 'w-24',
+            'oninput': ''
+        } %}
+    </div>
+    <div class="mb-1">
+        {% include 'composants/forms/inputs/input_hidden_horizontal.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-9/12',
+            'label' : form.cotisationName.vars.label,
+            form : form.cotisationName,
+            'placeholder': null,
+            'input_width' : 'w-72',
             'oninput': ''
         } %}
     </div>

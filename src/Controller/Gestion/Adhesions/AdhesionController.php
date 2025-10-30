@@ -140,6 +140,8 @@ final class AdhesionController extends AbstractController
     #[Route('/{id}/edit', name: 'app_gestion_adhesions_adhesion_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Adhesion $adhesion, EntityManagerInterface $entityManager): Response
     {
+        $association = $adhesion->getCampaign()->getAssociation();
+
         $form = $this->createForm(AdhesionType::class, $adhesion);
         $form->handleRequest($request);
 
@@ -152,7 +154,49 @@ final class AdhesionController extends AbstractController
         return $this->render('gestion/adhesions/adhesion/edit.html.twig', [
             'adhesion' => $adhesion,
             'form' => $form,
+            'association' => $association,
         ]);
+    }
+
+    #[Route('/{id}/editjson', name: 'mac_gestion_adhesions_adhesion_editjson', methods: ['GET', 'POST'])]
+    public function editjson(Request $request, Adhesion $adhesion, EntityManagerInterface $entityManager): Response
+    {
+        $association = $adhesion->getCampaign()->getAssociation();
+
+        $form = $this->createForm(AdhesionType::class, $adhesion,[
+            'action' => $this->generateUrl('mac_gestion_adhesions_adhesion_editjson', ['id' => $adhesion->getId()]),
+            'association' => $association,
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if($form->isValid()){
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_gestion_adhesions_adhesion_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            // Bloc dans le cas d'une erreur de formulaire à la soummission'
+            $view = $this->render('gestion/adhesions/adhesion/_form.html.twig', [
+                'adhesion' => $adhesion,
+                'form' => $form,
+            ]);
+            return $this->json([
+                "code" => 422,
+                'message' => 'Une erreur s\'est glissé dans le formulaire',
+                'formView' => $view->getContent()
+            ], 200);
+        }
+
+        // Bloc pour afficher le formulaire lors du premier appel
+        $view = $this->render('gestion/adhesions/adhesion/_form.html.twig', [
+            'adhesion' => $adhesion,
+            'form' => $form,
+        ]);
+        return $this->json([
+            "code" => 200,
+            'formView' => $view->getContent()
+        ], 200);
     }
 
     #[Route('/{id}', name: 'app_gestion_adhesions_adhesion_delete', methods: ['POST'])]

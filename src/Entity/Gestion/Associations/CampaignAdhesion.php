@@ -2,6 +2,8 @@
 
 namespace App\Entity\Gestion\Associations;
 
+use App\Entity\Gestion\Activities\Registration;
+use App\Entity\Gestion\Activities\priceActivities;
 use App\Entity\Gestion\Adhesions\Adherent;
 use App\Entity\Gestion\Adhesions\Adhesion;
 use App\Repository\Gestion\Associations\CampaignAdhesionRepository;
@@ -36,9 +38,23 @@ class CampaignAdhesion
     #[ORM\OneToMany(targetEntity: Adhesion::class, mappedBy: 'campaign')]
     private Collection $adhesions;
 
+    /**
+     * @var Collection<int, priceActivities>
+     */
+    #[ORM\OneToMany(targetEntity: priceActivities::class, mappedBy: 'campaign')]
+    private Collection $priceActivities;
+
+    /**
+     * @var Collection<int, Registration>
+     */
+    #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'campaign')]
+    private Collection $registrations;
+
     public function __construct()
     {
         $this->adhesions = new ArrayCollection();
+        $this->priceActivities = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,6 +134,66 @@ class CampaignAdhesion
             // set the owning side to null (unless already changed)
             if ($adhesion->getCampaign() === $this) {
                 $adhesion->setCampaign(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, priceActivities>
+     */
+    public function getPriceActivities(): Collection
+    {
+        return $this->priceActivities;
+    }
+
+    public function addPriceActivity(priceActivities $priceActivity): static
+    {
+        if (!$this->priceActivities->contains($priceActivity)) {
+            $this->priceActivities->add($priceActivity);
+            $priceActivity->setCampaign($this);
+        }
+
+        return $this;
+    }
+
+    public function removePriceActivity(priceActivities $priceActivity): static
+    {
+        if ($this->priceActivities->removeElement($priceActivity)) {
+            // set the owning side to null (unless already changed)
+            if ($priceActivity->getCampaign() === $this) {
+                $priceActivity->setCampaign(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setCampaign($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getCampaign() === $this) {
+                $registration->setCampaign(null);
             }
         }
 

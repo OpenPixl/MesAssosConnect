@@ -1,0 +1,92 @@
+{{ form_start(form) }}
+<div class="text-start">
+    {% if form_errors(form) %}
+        <p class="mt-1 text-sm text-red-600">
+            {{ form_errors(form) }}
+        </p>
+    {% endif %}
+
+    <div class="mt-1 mb-1">
+        {% include 'composants/forms/input_choicepanel.html.twig' with {
+            'legend_width' : 'w-3/12',
+            'col_width' : 'w-9/12',
+            form : form.typeMember
+        } %}
+    </div>
+
+    <div id="pers_physique">
+        <div class="mb-1">
+            {% include 'composants/forms/blocs/bloc_identity_horizontal.html.twig' with {
+                'legend_width' : 'w-3/12',
+                'col_width' : 'w-9/12',
+                civility : form.civility,
+                firstname: form.firstName,
+                'firstname_width': 'w-1/3',
+                'firstname_placeholder' : '',
+                lastname: form.lastName,
+                'lastname_width': 'w-2/3',
+                'lastname_placeholder': '',
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-3/12',
+                'col_width' : 'w-9/12',
+                'label' : 'Date de naissance',
+                form : form.birthday,
+                'placeholder': '01/01/1900',
+                'input_width' : 'w-40',
+                'oninput': 'formatDate(this)'
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/blocs/bloc_city_horizontal.html.twig' with {
+                'legend_width' : 'w-3/12',
+                'col_width' : 'w-9/12',
+                'label': 'Adresse',
+                address : form.address,
+                bisAddress : form.bisAddress,
+                zipcode : form.zipcode,
+                city : form.city,
+                'address_width' :'w-80',
+                'bisAddress_width' :'w-80',
+                'zipcode_width' : 'w-20',
+                'city_width' :'w-60',
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_three.html.twig' with {
+                'legend_width' : 'w-3/12',
+                'col_width' : 'w-9/12',
+                first : form.mobilePhone,
+                'first_width' : 'w-[110px]',
+                second : form.homePhone,
+                'second_width' : 'w-[110px]',
+                third : form.workPhone,
+                'third_width' : 'w-[110px]',
+                'oninput1': 'formatTel(this)',
+                'oninput2': 'formatTel(this)',
+                'oninput3': 'formatTel(this)'
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-3/12',
+                'col_width' : 'w-9/12',
+                'label' : 'Email',
+                form : form.email,
+                'placeholder': 'inscrire l\'adresse email',
+                'input_width' : 'w-full',
+                'oninput': ''
+            } %}
+        </div>
+
+    </div>
+    {{ form_widget(form.isVerified, {'attr': {'class': 'hidden' }}) }}
+    <div id="pers_morale">
+
+    </div>
+
+</div>
+
+{{ form_end(form) }}

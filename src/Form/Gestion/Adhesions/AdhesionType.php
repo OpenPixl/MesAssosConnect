@@ -6,8 +6,10 @@ use App\Entity\Gestion\Adhesions\Adhesion;
 use App\Entity\Gestion\Adhesions\Cotisation;
 use App\Entity\Gestion\Associations\Association;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
@@ -30,9 +32,12 @@ class AdhesionType extends AbstractType
                         ->setParameter('association', $association);
                 },
             ])
-            ->add('priceCotisation', moneyType::class,[
+            ->add('priceCotisation', IntegerType::class,[
                 'label' => 'Montant de la cotisation',
                 'required' => false,
+            ])
+            ->add('cotisationName', TextType::class, [
+                'label' => 'Nom de la cotisation',
             ])
             ->add('payBy')
             ->add('payAt')

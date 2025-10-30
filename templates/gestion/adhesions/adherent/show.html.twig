@@ -1,11 +1,40 @@
-    <h1>Adhesion</h1>
+<div class="md:flex">
+    <ul class="flex-column space-y space-y-3 text-sm font-medium text-gray-500 dark:text-gray-400 md:me-2 mb-4 md:mb-0">
+        <li>
+            <a href="{{ path('mac_admin_member_editjson', {'id':adherent.id }) }}" class="openFormModal inline-flex items-center px-4 py-3 text-white bg-sky-700 border border-sky-700 rounded-lg active w-full dark:bg-sky-600" aria-current="page">
+                <i class="fa-light fa-id-card fa-xl"></i>&nbsp;&nbsp;Profil
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('mac_gestion_adhesions_adhesion_editjson', {'id':adherent.id }) }}" class="openFormModal inline-flex items-center px-4 py-3 text-slate-700 bg-white border border-sky-700 rounded-lg active w-full hover:bg-sky-700 hover:text-white hover:ring-4 hover:ring-sky-500 dark:bg-sky-600">
+                <i class="fa-light fa-hand-holding-circle-dollar fa-xl"></i>&nbsp;&nbsp;Adhésion
+            </a>
+        </li>
+        <li>
+            <a href="" class="openFormModal inline-flex items-center px-4 py-3 text-slate-700 bg-white border border-sky-700 rounded-lg active w-full hover:bg-sky-700 hover:text-white hover:ring-4 hover:ring-sky-500 dark:bg-sky-600">
+                <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M18 7.5h-.423l-.452-1.09.3-.3a1.5 1.5 0 0 0 0-2.121L16.01 2.575a1.5 1.5 0 0 0-2.121 0l-.3.3-1.089-.452V2A1.5 1.5 0 0 0 11 .5H9A1.5 1.5 0 0 0 7.5 2v.423l-1.09.452-.3-.3a1.5 1.5 0 0 0-2.121 0L2.576 3.99a1.5 1.5 0 0 0 0 2.121l.3.3L2.423 7.5H2A1.5 1.5 0 0 0 .5 9v2A1.5 1.5 0 0 0 2 12.5h.423l.452 1.09-.3.3a1.5 1.5 0 0 0 0 2.121l1.415 1.413a1.5 1.5 0 0 0 2.121 0l.3-.3 1.09.452V18A1.5 1.5 0 0 0 9 19.5h2a1.5 1.5 0 0 0 1.5-1.5v-.423l1.09-.452.3.3a1.5 1.5 0 0 0 2.121 0l1.415-1.414a1.5 1.5 0 0 0 0-2.121l-.3-.3.452-1.09H18a1.5 1.5 0 0 0 1.5-1.5V9A1.5 1.5 0 0 0 18 7.5Zm-8 6a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/>
+                </svg>
+                activité
+            </a>
+        </li>
+        <li>
+            <a href="" class="openFormModal inline-flex items-center px-4 py-3 text-slate-700 bg-white border border-sky-700 rounded-lg active w-full hover:bg-sky-700 hover:text-white hover:ring-4 hover:ring-sky-500 dark:bg-sky-600">
+                <svg class="w-4 h-4 me-2 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M7.824 5.937a1 1 0 0 0 .726-.312 2.042 2.042 0 0 1 2.835-.065 1 1 0 0 0 1.388-1.441 3.994 3.994 0 0 0-5.674.13 1 1 0 0 0 .725 1.688Z"/>
+                    <path d="M17 7A7 7 0 1 0 3 7a3 3 0 0 0-3 3v2a3 3 0 0 0 3 3h1a1 1 0 0 0 1-1V7a5 5 0 1 1 10 0v7.083A2.92 2.92 0 0 1 12.083 17H12a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h1a1.993 1.993 0 0 0 1.722-1h.361a4.92 4.92 0 0 0 4.824-4H17a3 3 0 0 0 3-3v-2a3 3 0 0 0-3-3Z"/>
+                </svg>
+                Contact
+            </a>
+        </li>
+    </ul>
+    <div class="p-3 bg-white border border-sky-700 text-medium text-slate-700 rounded-lg w-full">
+        <article>
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Profile Tab</h3>
+            <p class="mb-2">This is some placeholder content the Profile tab's associated content, clicking another tab will toggle the visibility of this one for the next.</p>
+            <p>The tab JavaScript swaps classes to control the content visibility and styling.</p>
+        </article>
+    </div>
+</div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ adherent.id }}</td>
-            </tr>
 
-        </tbody>
-    </table>

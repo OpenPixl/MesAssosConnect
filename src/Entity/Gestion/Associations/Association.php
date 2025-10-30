@@ -2,6 +2,10 @@
 
 namespace App\Entity\Gestion\Associations;
 
+use App\Entity\Gestion\Activities\Activity;
+use App\Entity\Gestion\Activities\Registration;
+use App\Entity\Gestion\Activities\categoryActivities;
+use App\Entity\Gestion\Activities\priceActivities;
 use App\Entity\Gestion\Adhesions\Adherent;
 use App\Entity\Gestion\Adhesions\Cotisation;
 use App\Repository\Gestion\Associations\AssociationRepository;
@@ -104,10 +108,38 @@ class Association
     #[ORM\OneToMany(targetEntity: CampaignAdhesion::class, mappedBy: 'Association')]
     private Collection $campaignAdhesions;
 
+    /**
+     * @var Collection<int, Activity>
+     */
+    #[ORM\OneToMany(targetEntity: Activity::class, mappedBy: 'Assocotion')]
+    private Collection $activities;
+
+    /**
+     * @var Collection<int, categoryActivities>
+     */
+    #[ORM\OneToMany(targetEntity: categoryActivities::class, mappedBy: 'association')]
+    private Collection $categoryActivities;
+
+    /**
+     * @var Collection<int, Registration>
+     */
+    #[ORM\OneToMany(targetEntity: Registration::class, mappedBy: 'member')]
+    private Collection $registrations;
+
+    /**
+     * @var Collection<int, Equipment>
+     */
+    #[ORM\OneToMany(targetEntity: Equipment::class, mappedBy: 'asso')]
+    private Collection $equipment;
+
     public function __construct()
     {
         $this->cotisations = new ArrayCollection();
         $this->campaignAdhesions = new ArrayCollection();
+        $this->activities = new ArrayCollection();
+        $this->categoryActivities = new ArrayCollection();
+        $this->registrations = new ArrayCollection();
+        $this->equipment = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -482,6 +514,126 @@ class Association
             // set the owning side to null (unless already changed)
             if ($campaignAdhesion->getAssociation() === $this) {
                 $campaignAdhesion->setAssociation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): static
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities->add($activity);
+            $activity->setAssocotion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): static
+    {
+        if ($this->activities->removeElement($activity)) {
+            // set the owning side to null (unless already changed)
+            if ($activity->getAssocotion() === $this) {
+                $activity->setAssocotion(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, categoryActivities>
+     */
+    public function getCategoryActivities(): Collection
+    {
+        return $this->categoryActivities;
+    }
+
+    public function addCategoryActivity(categoryActivities $categoryActivity): static
+    {
+        if (!$this->categoryActivities->contains($categoryActivity)) {
+            $this->categoryActivities->add($categoryActivity);
+            $categoryActivity->setAssociation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoryActivity(categoryActivities $categoryActivity): static
+    {
+        if ($this->categoryActivities->removeElement($categoryActivity)) {
+            // set the owning side to null (unless already changed)
+            if ($categoryActivity->getAssociation() === $this) {
+                $categoryActivity->setAssociation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Registration>
+     */
+    public function getRegistrations(): Collection
+    {
+        return $this->registrations;
+    }
+
+    public function addRegistration(Registration $registration): static
+    {
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setMember($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registration $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getMember() === $this) {
+                $registration->setMember(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Equipment>
+     */
+    public function getEquipment(): Collection
+    {
+        return $this->equipment;
+    }
+
+    public function addEquipment(Equipment $equipment): static
+    {
+        if (!$this->equipment->contains($equipment)) {
+            $this->equipment->add($equipment);
+            $equipment->setAsso($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipment(Equipment $equipment): static
+    {
+        if ($this->equipment->removeElement($equipment)) {
+            // set the owning side to null (unless already changed)
+            if ($equipment->getAsso() === $this) {
+                $equipment->setAsso(null);
             }
         }
 

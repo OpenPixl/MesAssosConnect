@@ -3,6 +3,7 @@
 namespace App\Entity\Admin;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\Entity\Gestion\Activities\Activity;
 use App\Entity\Gestion\Adhesions\Adherent;
 use App\Entity\Gestion\Associations\CompoAssociation;
 use App\Repository\Admin\MemberRepository;
@@ -105,9 +106,16 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Adherent::class, mappedBy: 'member')]
     private Collection $adherents;
 
+    /**
+     * @var Collection<int, Activity>
+     */
+    #[ORM\ManyToMany(targetEntity: Activity::class, mappedBy: 'animateurs')]
+    private Collection $activities;
+
     public function __construct()
     {
         $this->adherents = new ArrayCollection();
+        $this->activities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -433,6 +441,33 @@ class Member implements UserInterface, PasswordAuthenticatedUserInterface
             if ($adherent->getMember() === $this) {
                 $adherent->setMember(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Activity>
+     */
+    public function getActivities(): Collection
+    {
+        return $this->activities;
+    }
+
+    public function addActivity(Activity $activity): static
+    {
+        if (!$this->activities->contains($activity)) {
+            $this->activities->add($activity);
+            $activity->addAnimateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActivity(Activity $activity): static
+    {
+        if ($this->activities->removeElement($activity)) {
+            $activity->removeAnimateur($this);
         }
 
         return $this;

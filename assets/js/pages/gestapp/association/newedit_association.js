@@ -1,7 +1,7 @@
 // importation des éléments necessaires à la page
 import axios from 'axios';
-import {showNotification, showDialog, hideDialog} from "../../../composants/tailwind";
-import {change_selectcity, zipcode, formatDate, formatTel} from "../../../composants/fonctions";
+import {showNotification, showDialog, hideDialog} from "../../../../../../Francas2025/assets/js/composants/tailwind";
+import {change_selectcity, zipcode, formatDate, formatTel} from "../../../../../../Francas2025/assets/js/composants/fonctions";
 
 export function initEditNewAssociationPage() {
     console.log('Bonjour, vous êtes sur la page d\'ajout ou de modification d\'une Association');

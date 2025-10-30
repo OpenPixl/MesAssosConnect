@@ -23,6 +23,29 @@
                 'oninput': ''
             } %}
         </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_text_horizontal.html.twig' with {
+                'legend_width' : 'w-2/6',
+                'col_width' : 'w-4/6',
+                'label' : field_label(form.quota),
+                form : form.quota,
+                'placeholder': '',
+                'input_width' : 'w-20',
+                'oninput': ''
+            } %}
+        </div>
+        <div class="mb-1">
+            {% include 'composants/forms/input_textarea.html.twig' with {
+                'legend_width' : 'w-2/6',
+                'col_width' : 'w-4/6',
+                'label' : field_label(form.description),
+                form : form.description,
+                'placeholder': null,
+                'input_width' : 'w-100',
+                'rows': '8',
+                'required': null
+            } %}
+        </div>
     </div>
 
 </div>

@@ -1,8 +1,8 @@
 // importation des éléments necessaires à la page
 import axios from 'axios';
-import * as tailwind from '../../../composants/tailwind';
-import {showNotification, showDialog, hideDialog} from "../../../composants/tailwind";
-import {change_selectcity, zipcode} from "../../../composants/fonctions";
+import * as tailwind from '../../../../../../Francas2025/assets/js/composants/tailwind';
+import {showNotification, showDialog, hideDialog} from "../../../../../../Francas2025/assets/js/composants/tailwind";
+import {change_selectcity, zipcode} from "../../../../../../Francas2025/assets/js/composants/fonctions";
 
 export function initNewEditMemberPage() {
     console.log('Bonjour, vous êtes sur la page dédiée à la gestion des membres.');

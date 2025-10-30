@@ -20,6 +20,12 @@ class CotisationType extends AbstractType
             ->add('cotisation', IntegerType::class, [
                 'label' => 'Prix de la Cotisation',
             ])
+            ->add('description', TextType::class, [
+                'label' => 'Description',
+            ])
+            ->add('quota', IntegerType::class, [
+                'label' => 'nombre d\'adhérents',
+            ])
         ;
     }
 

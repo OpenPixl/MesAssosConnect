@@ -1,8 +1,8 @@
 // import './bootstrap.js';
 
 import './styles/admin.css';
-import './js/composants/inputs';
-import { initDropdowns } from './js/composants/tailwind.js';
+import '../../Francas2025/assets/js/composants/inputs';
+import { initDropdowns } from '../../Francas2025/assets/js/composants/tailwind.js';
 import { initEditNewAssociationPage } from './js/pages/gestapp/association/newedit_association';
 import { initShowAssociationPage } from './js/pages/gestapp/association/show_association';
 import { initNewEditMemberPage } from './js/pages/admin/member/newedit_member';

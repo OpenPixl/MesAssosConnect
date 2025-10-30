@@ -107,12 +107,13 @@ final class CotisationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/price', name: 'mac_gestion_cotisation_price', methods: ['GET'])]
-    public function getPrice(Cotisation $cotisation): JsonResponse
+    #[Route('/{id}/infos', name: 'mac_gestion_cotisation_infos', methods: ['GET'])]
+    public function getInfos(Cotisation $cotisation): JsonResponse
     {
         return $this->json([
             'id' => $cotisation->getId(),
             'price' => $cotisation->getCotisation(),
+            'name' => $cotisation->getName(),
         ]);
     }
 

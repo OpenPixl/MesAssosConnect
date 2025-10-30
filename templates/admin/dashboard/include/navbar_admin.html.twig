@@ -1,15 +1,15 @@
-<nav class="bg-white shadow-sm">
+<nav class="bg-gray-800" style="background: linear-gradient(90deg, rgba(28,113,216,1) 0%, rgba(48,200,119,1) 100%);">
     <div class="px-2 sm:px-4 lg:px-8">
         <div class="flex h-16 justify-between">
             <div class="flex px-2 lg:px-0">
                 <div class="flex shrink-0 items-center">
-                    <img class="h-8 w-auto" src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=sky&shade=600" alt="Your Company" />
+                    <img class="h-8 w-auto" src="{{ asset('uploads/images/fixes/logo-cc.png') }}" alt="logo du dispositif collégiens-citoyen" />
                 </div>
                 <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
                     <!-- Current: "border-sky-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
-                    <a href="{{ path('mac_admin_dashboard_index') }}" class="inline-flex items-center border-b-2 border-sky-500 px-1 pt-1 text-sm font-medium text-gray-900">Accueil</a>
-                    <a href="{{ path('mac_admin_association_index') }}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Associations</a>
-                    <a href="{{ path('mac_admin_member_index') }}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Utilisateurs</a>
+                    <a href="#" class="inline-flex items-center border-b-2 border-sky-500 px-1 pt-1 text-sm font-medium text-white">Site</a>
+                    <a href="#" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-300 hover:border-gray-300 hover:text-white">Associations</a>
+                    <a href="#" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-300 hover:border-gray-300 hover:text-white">Utilisateurs</a>
                 </div>
             </div>
             <div class="flex flex-1 items-center justify-center px-2 lg:ml-6 lg:justify-end">
@@ -75,9 +75,9 @@
                     -->
                     <div id="menu-dropdown" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5 focus:outline-hidden hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                         <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
-                        <a href="{{ path('mac_admin_member_edit', {'id': app.user.id }) }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Votre profil</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Votre profil</a>
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Paramètres</a>
-                        <a href="{{ path('mac_security_logout') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Déconnexion</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Déconnexion</a>
                     </div>
                 </div>
                 {% endif %}
@@ -119,3 +119,4 @@
         </div>
     </div>
 </nav>
+

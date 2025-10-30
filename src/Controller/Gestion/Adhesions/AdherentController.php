@@ -13,13 +13,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/gestion/associations/adhesion')]
-final class AdherantController extends AbstractController
+#[Route('/gestion/associations/adherent')]
+final class AdherentController extends AbstractController
 {
-    public function stateAdhesion(Adherent $adhesion){
-        // copier ce que j'ai fait dans PAPSIMMO pour suivre l'état de l'adhesion.
-    }
-
     #[Route(name: 'mac_gestion_associations_adhesion_index', methods: ['GET'])]
     public function index(AdherentRepository $adhesionRepository): Response
     {
@@ -61,7 +57,6 @@ final class AdherantController extends AbstractController
             }
         }
         if($check == true){
-
             return $this->json([
                 'liste' => $this->renderView('gestion/associations/association/include/_listAdherants.html.twig', [
                     'association' => $association,
@@ -100,7 +95,7 @@ final class AdherantController extends AbstractController
         ], 200);
     }
 
-    #[Route('/{id}/edit', name: 'mac_gestion_associations_adhesion_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'mac_gestion_associations_adherent_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Adherent $adhesion, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(AdhesionType::class, $adhesion);

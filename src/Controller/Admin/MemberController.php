@@ -237,7 +237,7 @@ class MemberController extends AbstractController
         ]);
     }
 
-    #[Route('/editJson', name: 'mac_admin_member_editjson', methods: ['GET', 'POST'])]
+    #[Route('/{id}/editJson', name: 'mac_admin_member_editjson', methods: ['GET', 'POST'])]
     public function editJson(Request $request,Member $member, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(MemberType::class, $member, [
@@ -248,18 +248,31 @@ class MemberController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+        if ($form->isSubmitted() ) {
+            if($form->isValid()){
+                $entityManager->flush();
+
+                // return
+                return $this->json([
+                    "code" => 200,
+                    'message' => "Les modifications du compte ont été mises à jour."
+                ], 200);
+            }
+            // view
+            $view = $this->render('admin/member/_form.html.twig', [
+                'member' => $member,
+                'form' => $form
+            ]);
 
             // return
             return $this->json([
-                "code" => 200,
-                'message' => "Les modifications du compte ont été mises à jour."
+                "code" => 422,
+                'formView' => $view->getContent()
             ], 200);
         }
 
         // view
-        $view = $this->render('admin/member/_form.html.twig', [
+        $view = $this->render('admin/member/_formDialog.html.twig', [
             'member' => $member,
             'form' => $form
         ]);
